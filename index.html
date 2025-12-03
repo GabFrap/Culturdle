@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Quotidien</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700;900&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Comic Neue', 'Comic Sans MS', cursive;
+    }
+    
+    .min-h-screen { min-height: 100vh; }
+    .bg-gradient-to-br { background-image: linear-gradient(to bottom right, var(--tw-gradient-stops)); }
+    .from-amber-50 { --tw-gradient-from: #fffbeb; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 251, 235, 0)); }
+    .via-orange-50 { --tw-gradient-stops: var(--tw-gradient-from), #fff7ed, var(--tw-gradient-to, rgba(255, 247, 237, 0)); }
+    .to-yellow-50 { --tw-gradient-to: #fefce8; }
+    
+    .p-4 { padding: 1rem; }
+    .p-6 { padding: 1.5rem; }
+    .p-8 { padding: 2rem; }
+    .pt-8 { padding-top: 2rem; }
+    .pt-1 { padding-top: 0.25rem; }
+    .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .px-8 { padding-left: 2rem; padding-right: 2rem; }
+    .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+    .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+    .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+    
+    .mb-2 { margin-bottom: 0.5rem; }
+    .mb-6 { margin-bottom: 1.5rem; }
+    .mb-8 { margin-bottom: 2rem; }
+    .mt-2 { margin-top: 0.5rem; }
+    .mt-4 { margin-top: 1rem; }
+    .mt-6 { margin-top: 1.5rem; }
+    
+    .max-w-2xl { max-width: 42rem; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+    
+    .text-center { text-align: center; }
+    .text-5xl { font-size: 3rem; line-height: 1; }
+    .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+    .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+    .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+    .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+    .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+    
+    .font-black { font-weight: 900; }
+    .font-medium { font-weight: 500; }
+    .tracking-tight { letter-spacing: -0.025em; }
+    .uppercase { text-transform: uppercase; }
+    
+    .text-amber-900 { color: #78350f; }
+    .text-amber-800 { color: #92400e; }
+    .text-amber-700 { color: #b45309; }
+    .text-gray-800 { color: #1f2937; }
+    .text-white { color: #ffffff; }
+    .text-green-800 { color: #166534; }
+    .text-red-800 { color: #991b1b; }
+    
+    .bg-white { background-color: #ffffff; }
+    .bg-amber-50 { background-color: #fffbeb; }
+    .bg-amber-500 { background-color: #f59e0b; }
+    .bg-gray-50 { background-color: #f9fafb; }
+    .bg-green-100 { background-color: #dcfce7; }
+    .bg-red-100 { background-color: #fee2e2; }
+    
+    .bg-gradient-to-r { background-image: linear-gradient(to right, var(--tw-gradient-stops)); }
+    .from-yellow-100 { --tw-gradient-from: #fef9c3; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(254, 249, 195, 0)); }
+    .to-amber-100 { --tw-gradient-to: #fef3c7; }
+    .from-amber-100 { --tw-gradient-from: #fef3c7; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(254, 243, 199, 0)); }
+    .to-orange-100 { --tw-gradient-to: #ffedd5; }
+    .from-amber-500 { --tw-gradient-from: #f59e0b; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(245, 158, 11, 0)); }
+    .to-orange-500 { --tw-gradient-to: #f97316; }
+    .from-amber-600 { --tw-gradient-from: #d97706; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(217, 119, 6, 0)); }
+    .to-orange-600 { --tw-gradient-to: #ea580c; }
+    .from-blue-500 { --tw-gradient-from: #3b82f6; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(59, 130, 246, 0)); }
+    .to-indigo-500 { --tw-gradient-to: #6366f1; }
+    .from-blue-600 { --tw-gradient-from: #2563eb; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(37, 99, 235, 0)); }
+    .to-indigo-600 { --tw-gradient-to: #4f46e5; }
+    .from-green-50 { --tw-gradient-from: #f0fdf4; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(240, 253, 244, 0)); }
+    .to-emerald-50 { --tw-gradient-to: #ecfdf5; }
+    .from-red-50 { --tw-gradient-from: #fef2f2; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(254, 242, 242, 0)); }
+    .from-amber-50 { --tw-gradient-from: #fffbeb; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 251, 235, 0)); }
+    .to-orange-50 { --tw-gradient-to: #fff7ed; }
+    
+    .border { border-width: 1px; }
+    .border-2 { border-width: 2px; }
+    .border-3 { border-width: 3px; }
+    .border-4 { border-width: 4px; }
+    .border-amber-200 { border-color: #fde68a; }
+    .border-amber-300 { border-color: #fcd34d; }
+    .border-amber-400 { border-color: #fbbf24; }
+    .border-orange-400 { border-color: #fb923c; }
+    .border-gray-200 { border-color: #e5e7eb; }
+    .border-green-400 { border-color: #4ade80; }
+    .border-green-500 { border-color: #22c55e; }
+    .border-red-400 { border-color: #f87171; }
+    .border-red-500 { border-color: #ef4444; }
+    
+    .rounded-xl { border-radius: 0.75rem; }
+    .rounded-2xl { border-radius: 1rem; }
+    .rounded-lg { border-radius: 0.5rem; }
+    .rounded-full { border-radius: 9999px; }
+    
+    .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+    .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+    .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+    
+    .flex { display: flex; }
+    .inline-block { display: inline-block; }
+    .gap-2 { gap: 0.5rem; }
+    .gap-3 { gap: 0.75rem; }
+    .justify-center { justify-content: center; }
+    .items-center { align-items: center; }
+    .items-start { align-items: flex-start; }
+    .flex-shrink-0 { flex-shrink: 0; }
+    .flex-wrap { flex-wrap: wrap; }
+    
+    .space-y-4 > * + * { margin-top: 1rem; }
+    
+    .w-8 { width: 2rem; }
+    .h-8 { height: 2rem; }
+    .w-12 { width: 3rem; }
+    .h-12 { height: 3rem; }
+    
+    .transition-all { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+    .duration-150 { transition-duration: 150ms; }
+    
+    .scale-110 { transform: scale(1.1); }
+    .hover\:scale-105:hover { transform: scale(1.05); }
+    .hover\:border-amber-400:hover { border-color: #fbbf24; }
+    .hover\:border-orange-400:hover { border-color: #fb923c; }
+    .hover\:from-amber-600:hover { --tw-gradient-from: #d97706; }
+    .hover\:to-orange-600:hover { --tw-gradient-to: #ea580c; }
+    .hover\:from-blue-600:hover { --tw-gradient-from: #2563eb; }
+    .hover\:to-indigo-600:hover { --tw-gradient-to: #4f46e5; }
+    
+    .opacity-50 { opacity: 0.5; }
+    
+    .cursor-not-allowed { cursor: not-allowed; }
+    
+    button {
+      cursor: pointer;
+      border: none;
+      outline: none;
+    }
+    
+    input {
+      outline: none;
+    }
+    
+    input:focus {
+      border-color: #f97316;
+      box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.1);
+    }
+    
+    input:disabled {
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    function DailyQuiz() {
+      const DAILY_QUESTIONS = {
+        '2024-12-02': [
+          {
+            category: 'Géographie',
+            categoryIcon: '🗺️',
+            clues: [
+              'Cette capitale européenne a été fondée au IIIe siècle avant J.-C.',
+              'Surnommée la Ville Lumière',
+              'On y trouve la Tour Eiffel'
+            ],
+            answer: 'PARIS',
+            points: [8, 4, 2],
+            boxCount: 6
+          },
+          {
+            category: 'Cinéma',
+            categoryIcon: '🎬',
+            clues: [
+              'Ce film de 1997 a remporté 11 Oscars',
+              'Il raconte une histoire d\'amour tragique sur l\'océan Atlantique',
+              'Leonardo DiCaprio et Kate Winslet en sont les vedettes'
+            ],
+            answer: 'TITANIC',
+            points: [8, 4, 2],
+            boxCount: 8
+          },
+          {
+            category: 'Science',
+            categoryIcon: '🔬',
+            clues: [
+              'Cet organe pèse environ 300 grammes chez un adulte',
+              'Il est composé de quatre cavités appelées oreillettes et ventricules',
+              'On peut sentir ses battements en prenant son pouls'
+            ],
+            answer: 'COEUR',
+            points: [8, 4, 2],
+            boxCount: 5
+          }
+        ],
+        '2024-12-03': [
+          {
+            category: 'Histoire',
+            categoryIcon: '📜',
+            clues: [
+              'Ce personnage historique a commandé l\'armée continentale pendant une révolution au XVIIIe siècle',
+              'Son visage est sculpté sur le Mont Rushmore',
+              'La capitale américaine porte son nom'
+            ],
+            answer: 'WASHINGTON',
+            points: [8, 4, 2],
+            boxCount: 10
+          },
+          {
+            category: 'Musique',
+            categoryIcon: '🎵',
+            clues: [
+              'Cet instrument possède généralement 6 cordes',
+              'Il peut être électrique ou acoustique',
+              'Souvent utilisé dans le rock et le blues'
+            ],
+            answer: 'GUITARE',
+            points: [8, 4, 2],
+            boxCount: 7
+          },
+          {
+            category: 'Nature',
+            categoryIcon: '🌳',
+            clues: [
+              'Cet animal peut peser jusqu\'à 6 tonnes',
+              'Il possède une trompe préhensile',
+              'C\'est le plus grand mammifère terrestre'
+            ],
+            answer: 'ELEPHANT',
+            points: [8, 4, 2],
+            boxCount: 8
+          }
+        ],
+        '2024-12-04': [
+          {
+            category: 'Sport',
+            categoryIcon: '⚽',
+            clues: [
+              'Cet événement sportif a été créé en Grèce antique et ressuscité en 1896',
+              'Symbole : cinq anneaux entrelacés de couleurs différentes',
+              'Compétition internationale tous les 4 ans'
+            ],
+            answer: 'OLYMPIQUES',
+            points: [8, 4, 2],
+            boxCount: 10
+          },
+          {
+            category: 'Gastronomie',
+            categoryIcon: '🍕',
+            clues: [
+              'Ce plat rond est originaire de Naples',
+              'Sa version "Margherita" est la plus classique',
+              'Se compose d\'une pâte, sauce tomate et fromage'
+            ],
+            answer: 'PIZZA',
+            points: [8, 4, 2],
+            boxCount: 5
+          },
+          {
+            category: 'Technologie',
+            categoryIcon: '💻',
+            clues: [
+              'Ce réseau a été créé dans les années 1960-70 pour des fins militaires',
+              'Il utilise des protocoles comme HTTP et TCP/IP',
+              'Accessible via un navigateur web'
+            ],
+            answer: 'INTERNET',
+            points: [8, 4, 2],
+            boxCount: 8
+          }
+        ]
+      };
+
+      const storage = {
+        get: async (key) => {
+          try {
+            const value = localStorage.getItem(key);
+            return value ? { key, value } : null;
+          } catch {
+            return null;
+          }
+        },
+        set: async (key, value) => {
+          try {
+            localStorage.setItem(key, value);
+            return { key, value };
+          } catch {
+            return null;
+          }
+        }
+      };
+
+      const getTodayString = () => {
+        const now = new Date();
+        return now.toISOString().split('T')[0];
+      };
+
+      const todayStr = getTodayString();
+      const dailyQuestions = DAILY_QUESTIONS[todayStr];
+      
+      if (!dailyQuestions) {
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 flex items-center justify-center p-4">
+            <div className="text-center">
+              <p className="text-xl text-amber-800 font-black">
+                Pas de quiz disponible aujourd'hui
+              </p>
+            </div>
+          </div>
+        );
+      }
+
+      const [currentQuestionIndex, setCurrentQuestionIndex] = React.useState(0);
+      const [totalScore, setTotalScore] = React.useState(0);
+      const question = dailyQuestions[currentQuestionIndex];
+      
+      const [userAnswer, setUserAnswer] = React.useState(Array(question.boxCount).fill(''));
+      const [currentClue, setCurrentClue] = React.useState(0);
+      const [isComplete, setIsComplete] = React.useState(false);
+      const [questionScore, setQuestionScore] = React.useState(0);
+      const [wrongAnswers, setWrongAnswers] = React.useState([]);
+      const [showError, setShowError] = React.useState(false);
+      const [errorMessage, setErrorMessage] = React.useState('');
+      const inputRefs = React.useRef([]);
+
+      React.useEffect(() => {
+        const loadProgress = async () => {
+          try {
+            const totalScoreData = await storage.get(`quiz-total-${todayStr}`);
+            if (totalScoreData && totalScoreData.value) {
+              setTotalScore(JSON.parse(totalScoreData.value));
+            }
+
+            const savedData = await storage.get(`quiz-${todayStr}-${currentQuestionIndex}`);
+            if (savedData && savedData.value) {
+              const data = JSON.parse(savedData.value);
+              setUserAnswer(data.userAnswer || Array(question.boxCount).fill(''));
+              setCurrentClue(data.currentClue || 0);
+              setIsComplete(data.isComplete || false);
+              setQuestionScore(data.questionScore || 0);
+              setWrongAnswers(data.wrongAnswers || []);
+            } else {
+              setUserAnswer(Array(question.boxCount).fill(''));
+              setCurrentClue(0);
+              setIsComplete(false);
+              setQuestionScore(0);
+              setWrongAnswers([]);
+            }
+          } catch (error) {
+            console.log('No saved progress');
+            setUserAnswer(Array(question.boxCount).fill(''));
+            setCurrentClue(0);
+            setIsComplete(false);
+            setQuestionScore(0);
+            setWrongAnswers([]);
+          }
+        };
+        loadProgress();
+      }, [todayStr, currentQuestionIndex]);
+
+      const saveProgress = async () => {
+        try {
+          await storage.set(`quiz-${todayStr}-${currentQuestionIndex}`, JSON.stringify({
+            userAnswer,
+            currentClue,
+            isComplete,
+            questionScore,
+            wrongAnswers
+          }));
+          
+          await storage.set(`quiz-total-${todayStr}`, JSON.stringify(totalScore));
+        } catch (error) {
+          console.error('Failed to save progress');
+        }
+      };
+
+      React.useEffect(() => {
+        saveProgress();
+      }, [userAnswer, currentClue, isComplete, questionScore, totalScore, wrongAnswers]);
+
+      const handleInputChange = (index, value) => {
+        if (isComplete) return;
+        
+        const letter = value.toUpperCase().replace(/[^A-ZÀ-ÿ]/g, '');
+        if (letter.length > 1) return;
+        
+        const newAnswer = [...userAnswer];
+        newAnswer[index] = letter;
+        setUserAnswer(newAnswer);
+
+        if (inputRefs.current[index]) {
+          inputRefs.current[index].classList.add('scale-110');
+          setTimeout(() => {
+            inputRefs.current[index]?.classList.remove('scale-110');
+          }, 150);
+        }
+
+        if (letter && index < question.boxCount - 1) {
+          setTimeout(() => {
+            inputRefs.current[index + 1]?.focus();
+          }, 50);
+        }
+      };
+
+      const handleKeyDown = (index, e) => {
+        if (e.key === 'Backspace' && !userAnswer[index] && index > 0) {
+          setTimeout(() => {
+            inputRefs.current[index - 1]?.focus();
+          }, 50);
+        }
+      };
+
+      const checkAnswer = () => {
+        const answer = userAnswer.join('').trim();
+        
+        // Vérifier si la réponse a déjà été essayée
+        if (wrongAnswers.includes(answer)) {
+          setErrorMessage('Vous avez déjà essayé cette réponse !');
+          setShowError(true);
+          setTimeout(() => setShowError(false), 3000);
+          return;
+        }
+        
+        const correct = answer === question.answer;
+        
+        if (correct && !isComplete) {
+          const points = question.points[currentClue];
+          setQuestionScore(points);
+          setTotalScore(prev => prev + points);
+          setIsComplete(true);
+        } else if (!correct && currentClue < question.clues.length - 1) {
+          // Mauvaise réponse mais il reste des indices
+          setWrongAnswers(prev => [...prev, answer]);
+          setUserAnswer(Array(question.boxCount).fill(''));
+          nextClue();
+          // Focus sur le premier input
+          setTimeout(() => {
+            inputRefs.current[0]?.focus();
+          }, 100);
+        } else {
+          // Mauvaise réponse et plus d'indices
+          setWrongAnswers(prev => [...prev, answer]);
+          setIsComplete(true);
+        }
+      };
+
+      const nextClue = () => {
+        if (currentClue < question.clues.length - 1) {
+          setCurrentClue(prev => prev + 1);
+        }
+      };
+
+      const changeQuestion = (index) => {
+        setCurrentQuestionIndex(index);
+      };
+
+      return (
+        <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 p-4">
+          <div className="max-w-2xl mx-auto">
+            <div className="text-center mb-6 pt-8">
+              <h1 className="text-5xl font-black text-amber-900 mb-2 tracking-tight">
+                Quiz du Jour
+              </h1>
+              <p className="text-amber-700 text-lg font-medium">
+                {new Date(todayStr).toLocaleDateString('fr-FR', { 
+                  weekday: 'long', 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric' 
+                })}
+              </p>
+            </div>
+
+            <div className="text-center mb-6">
+              <div className="inline-block bg-gradient-to-r from-yellow-100 to-amber-100 px-8 py-4 rounded-2xl border-3 border-amber-400 shadow-lg">
+                <span className="text-3xl font-black text-amber-900">
+                  🏆 Score Total: {totalScore}
+                </span>
+              </div>
+            </div>
+
+            <div className="flex gap-3 justify-center mb-6">
+              {dailyQuestions.map((q, index) => (
+                <button
+                  key={index}
+                  onClick={() => changeQuestion(index)}
+                  className={`px-6 py-3 rounded-xl font-black text-lg transition-all hover:scale-105 shadow-md ${
+                    currentQuestionIndex === index
+                      ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white'
+                      : 'bg-white text-amber-800 border-2 border-amber-300 hover:border-amber-400'
+                  }`}
+                >
+                  Question {index + 1}
+                </button>
+              ))}
+            </div>
+
+            <div className="bg-white rounded-2xl shadow-xl p-8 border-4 border-amber-200">
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <span style={{fontSize: '2.5rem'}}>{question.categoryIcon}</span>
+                <h2 className="text-2xl font-black text-amber-800">
+                  {question.category}
+                </h2>
+              </div>
+
+              <div className="text-center mb-6">
+                <div className="inline-block bg-gradient-to-r from-amber-100 to-orange-100 px-6 py-3 rounded-full border-2 border-amber-300">
+                  <span className="text-2xl font-black text-amber-900">
+                    Score: {questionScore}
+                  </span>
+                </div>
+              </div>
+
+              <div className="space-y-4 mb-8">
+                {question.clues.map((clue, index) => (
+                  <div
+                    key={index}
+                    className={`p-4 rounded-xl transition-all border-2 ${
+                      index <= currentClue
+                        ? 'bg-gradient-to-r from-amber-50 to-orange-50 border-amber-300'
+                        : 'bg-gray-50 border-gray-200 opacity-50'
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="flex-shrink-0 w-8 h-8 bg-amber-500 text-white rounded-full flex items-center justify-center font-black text-sm">
+                        {index + 1}
+                      </span>
+                      <p className="text-gray-800 text-lg pt-1 font-medium">
+                        {index <= currentClue ? clue : '???'}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mb-6 p-4 bg-amber-50 border-2 border-amber-200 rounded-xl">
+                <p className="text-center text-amber-800 font-medium">
+                  💡 Entrez votre réponse (le nombre de cases peut être exact ou légèrement supérieur)
+                </p>
+              </div>
+
+              {showError && (
+                <div className="mb-6 p-4 bg-red-100 border-2 border-red-400 rounded-xl">
+                  <p className="text-center text-red-800 font-black">
+                    ⚠️ {errorMessage}
+                  </p>
+                </div>
+              )}
+
+              <div className="flex flex-wrap gap-2 justify-center mb-6">
+                {userAnswer.map((letter, index) => (
+                  <input
+                    key={index}
+                    ref={el => inputRefs.current[index] = el}
+                    type="text"
+                    maxLength="1"
+                    value={letter}
+                    onChange={(e) => handleInputChange(index, e.target.value)}
+                    onKeyDown={(e) => handleKeyDown(index, e)}
+                    disabled={isComplete}
+                    className={`w-12 h-12 text-center text-2xl font-black uppercase rounded-lg border-3 transition-all duration-150
+                      ${isComplete && letter === question.answer[index]
+                        ? 'bg-green-100 border-green-500 text-green-800'
+                        : isComplete
+                        ? 'bg-red-100 border-red-500 text-red-800'
+                        : 'bg-white border-amber-300 text-amber-900'
+                      } ${isComplete ? 'cursor-not-allowed' : 'hover:border-orange-400'}`}
+                  />
+                ))}
+              </div>
+
+              {!isComplete && (
+                <div className="flex gap-3 justify-center">
+                  <button
+                    onClick={checkAnswer}
+                    className="px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl font-black text-lg hover:from-amber-600 hover:to-orange-600 transition-all hover:scale-105 shadow-lg"
+                  >
+                    Vérifier
+                  </button>
+                  {currentClue < question.clues.length - 1 && (
+                    <button
+                      onClick={nextClue}
+                      className="px-8 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl font-black text-lg hover:from-blue-600 hover:to-indigo-600 transition-all hover:scale-105 shadow-lg"
+                    >
+                      Indice suivant
+                    </button>
+                  )}
+                </div>
+              )}
+
+              {isComplete && (
+                <div className="mt-6 text-center">
+                  <div className={`p-6 rounded-xl border-3 ${
+                    userAnswer.join('').trim() === question.answer
+                      ? 'bg-gradient-to-r from-green-50 to-emerald-50 border-green-400'
+                      : 'bg-gradient-to-r from-red-50 to-orange-50 border-red-400'
+                  }`}>
+                    <p className="text-2xl font-black mb-2">
+                      {userAnswer.join('').trim() === question.answer
+                        ? '🎉 Bravo! Bonne réponse!'
+                        : '❌ Dommage! La réponse était:'}
+                    </p>
+                    {userAnswer.join('').trim() !== question.answer && (
+                      <p className="text-3xl font-black text-amber-900 mt-2">
+                        {question.answer}
+                      </p>
+                    )}
+                    <p className="text-xl font-black text-amber-800 mt-4">
+                      Points gagnés: +{question.points[currentClue]}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<DailyQuiz />);
+  </script>
+</body>
+</html>

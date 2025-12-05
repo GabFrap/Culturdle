@@ -31,6 +31,7 @@
     .p-8 { padding: 2rem; }
     .pt-8 { padding-top: 2rem; }
     .pt-1 { padding-top: 0.25rem; }
+    .px-4 { padding-left: 1rem; padding-right: 1rem; }
     .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
     .px-8 { padding-left: 2rem; padding-right: 2rem; }
     .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
@@ -38,6 +39,7 @@
     .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
     
     .mb-2 { margin-bottom: 0.5rem; }
+    .mb-4 { margin-bottom: 1rem; }
     .mb-6 { margin-bottom: 1.5rem; }
     .mb-8 { margin-bottom: 2rem; }
     .mt-2 { margin-top: 0.5rem; }
@@ -54,6 +56,7 @@
     .text-2xl { font-size: 1.5rem; line-height: 2rem; }
     .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
     .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+    .text-base { font-size: 1rem; line-height: 1.5rem; }
     .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
     
     .font-black { font-weight: 900; }
@@ -66,7 +69,9 @@
     .text-amber-900 { color: #78350f; }
     .text-amber-800 { color: #92400e; }
     .text-amber-700 { color: #b45309; }
+    .text-amber-600 { color: #d97706; }
     .text-gray-800 { color: #1f2937; }
+    .text-gray-600 { color: #4b5563; }
     .text-white { color: #ffffff; }
     .text-green-800 { color: #166534; }
     .text-red-800 { color: #991b1b; }
@@ -75,6 +80,7 @@
     .bg-amber-50 { background-color: #fffbeb; }
     .bg-amber-500 { background-color: #f59e0b; }
     .bg-gray-50 { background-color: #f9fafb; }
+    .bg-gray-100 { background-color: #f3f4f6; }
     .bg-green-100 { background-color: #dcfce7; }
     .bg-red-100 { background-color: #fee2e2; }
     
@@ -96,6 +102,10 @@
     .from-red-50 { --tw-gradient-from: #fef2f2; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(254, 242, 242, 0)); }
     .from-amber-50 { --tw-gradient-from: #fffbeb; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 251, 235, 0)); }
     .to-orange-50 { --tw-gradient-to: #fff7ed; }
+    .from-gray-500 { --tw-gradient-from: #6b7280; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(107, 114, 128, 0)); }
+    .to-gray-600 { --tw-gradient-to: #4b5563; }
+    .from-gray-600 { --tw-gradient-from: #4b5563; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(75, 85, 99, 0)); }
+    .to-gray-700 { --tw-gradient-to: #374151; }
     
     .border { border-width: 1px; }
     .border-2 { border-width: 2px; }
@@ -106,6 +116,7 @@
     .border-amber-400 { border-color: #fbbf24; }
     .border-orange-400 { border-color: #fb923c; }
     .border-gray-200 { border-color: #e5e7eb; }
+    .border-gray-300 { border-color: #d1d5db; }
     .border-green-400 { border-color: #4ade80; }
     .border-green-500 { border-color: #22c55e; }
     .border-red-400 { border-color: #f87171; }
@@ -145,12 +156,16 @@
     .hover\:scale-105:hover { transform: scale(1.05); }
     .hover\:border-amber-400:hover { border-color: #fbbf24; }
     .hover\:border-orange-400:hover { border-color: #fb923c; }
+    .hover\:border-gray-400:hover { border-color: #9ca3af; }
     .hover\:from-amber-600:hover { --tw-gradient-from: #d97706; }
     .hover\:to-orange-600:hover { --tw-gradient-to: #ea580c; }
     .hover\:from-blue-600:hover { --tw-gradient-from: #2563eb; }
     .hover\:to-indigo-600:hover { --tw-gradient-to: #4f46e5; }
+    .hover\:from-gray-600:hover { --tw-gradient-from: #4b5563; }
+    .hover\:to-gray-700:hover { --tw-gradient-to: #374151; }
     
     .opacity-50 { opacity: 0.5; }
+    .opacity-70 { opacity: 0.7; }
     
     .cursor-not-allowed { cursor: not-allowed; }
     
@@ -197,6 +212,15 @@
     .slide-up {
       animation: slideUp 0.3s ease-out;
     }
+
+    .overflow-x-auto {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .whitespace-nowrap {
+      white-space: nowrap;
+    }
   </style>
 </head>
 <body>
@@ -205,7 +229,7 @@
   <script type="text/babel">
     function DailyQuiz() {
       const DAILY_QUESTIONS = {
-        '2025-12-04': [
+        '2025-12-02': [
           {
             category: 'Géographie',
             categoryIcon: '🗺️',
@@ -243,80 +267,384 @@
             boxCount: 5
           }
         ],
-        '2025-12-05': [
+        '2025-12-03': [
+          {
+            category: 'Littérature',
+            categoryIcon: '📚',
+            clues: [
+              'Cet auteur français a écrit "Les Misérables"',
+              'Il a aussi créé le personnage de Quasimodo',
+              'Son prénom est Victor'
+            ],
+            answer: 'HUGO',
+            points: [8, 4, 2],
+            boxCount: 4
+          },
+          {
+            category: 'Animaux',
+            categoryIcon: '🦁',
+            clues: [
+              'Ce félin est surnommé le roi de la jungle',
+              'Le mâle possède une crinière',
+              'Il vit principalement en Afrique'
+            ],
+            answer: 'LION',
+            points: [8, 4, 2],
+            boxCount: 4
+          },
+          {
+            category: 'Astronomie',
+            categoryIcon: '🌙',
+            clues: [
+              'C\'est le satellite naturel de la Terre',
+              'Elle influence les marées',
+              'On peut la voir la nuit'
+            ],
+            answer: 'LUNE',
+            points: [8, 4, 2],
+            boxCount: 4
+          }
+        ],
+        '2025-12-04': [
+          {
+            category: 'Musique',
+            categoryIcon: '🎹',
+            clues: [
+              'Compositeur autrichien né en 1756',
+              'Il a composé "La Flûte enchantée"',
+              'Son nom complet est Wolfgang Amadeus...'
+            ],
+            answer: 'MOZART',
+            points: [8, 4, 2],
+            boxCount: 6
+          },
+          {
+            category: 'Géographie',
+            categoryIcon: '🗺️',
+            clues: [
+              'Le plus grand océan du monde',
+              'Il sépare l\'Asie de l\'Amérique',
+              'Son nom signifie "paisible"'
+            ],
+            answer: 'PACIFIQUE',
+            points: [8, 4, 2],
+            boxCount: 9
+          },
           {
             category: 'Histoire',
             categoryIcon: '📜',
             clues: [
-              'Ce personnage historique a commandé l\'armée continentale pendant une révolution au XVIIIe siècle',
-              'Son visage est sculpté sur le Mont Rushmore',
-              'La capitale américaine porte son nom'
+              'Empereur français né en Corse',
+              'Il a été couronné en 1804',
+              'Il a été exilé sur l\'île d\'Elbe'
             ],
-            answer: 'WASHINGTON',
+            answer: 'NAPOLEON',
+            points: [8, 4, 2],
+            boxCount: 8
+          }
+        ],
+        '2025-12-05': [
+          {
+            category: 'Sport',
+            categoryIcon: '⚽',
+            clues: [
+              'Ce tournoi de football a lieu tous les 4 ans',
+              'La prochaine édition aura lieu en 2026',
+              'Le Brésil l\'a remporté 5 fois'
+            ],
+            answer: 'MONDIALE',
+            points: [8, 4, 2],
+            boxCount: 8
+          },
+          {
+            category: 'Nature',
+            categoryIcon: '🌸',
+            clues: [
+              'Cet arbre perd ses feuilles en automne',
+              'Son fruit est le gland',
+              'Il peut vivre plusieurs siècles'
+            ],
+            answer: 'CHENE',
+            points: [8, 4, 2],
+            boxCount: 5
+          },
+          {
+            category: 'Art',
+            categoryIcon: '🎨',
+            clues: [
+              'Peintre néerlandais célèbre pour ses tournesols',
+              'Il s\'est coupé une oreille',
+              'Son prénom est Vincent'
+            ],
+            answer: 'VANGOGH',
+            points: [8, 4, 2],
+            boxCount: 7
+          }
+        ],
+        '2025-12-06': [
+          {
+            category: 'Technologie',
+            categoryIcon: '💻',
+            clues: [
+              'Réseau social créé par Mark Zuckerberg',
+              'Lancé en 2004',
+              'Son logo est un "f" blanc sur fond bleu'
+            ],
+            answer: 'FACEBOOK',
+            points: [8, 4, 2],
+            boxCount: 8
+          },
+          {
+            category: 'Gastronomie',
+            categoryIcon: '🥖',
+            clues: [
+              'Pain français long et étroit',
+              'Symbole de la France',
+              'On la mange souvent au petit-déjeuner'
+            ],
+            answer: 'BAGUETTE',
+            points: [8, 4, 2],
+            boxCount: 8
+          },
+          {
+            category: 'Mythologie',
+            categoryIcon: '⚡',
+            clues: [
+              'Dieu grec du ciel et du tonnerre',
+              'Père de nombreux dieux de l\'Olympe',
+              'Son équivalent romain est Jupiter'
+            ],
+            answer: 'ZEUS',
+            points: [8, 4, 2],
+            boxCount: 4
+          }
+        ],
+        '2025-12-07': [
+          {
+            category: 'Cinéma',
+            categoryIcon: '🎬',
+            clues: [
+              'Saga de films sur des sorciers',
+              'Le personnage principal a une cicatrice en forme d\'éclair',
+              'L\'école s\'appelle Poudlard'
+            ],
+            answer: 'HARRYPOTTER',
+            points: [8, 4, 2],
+            boxCount: 11
+          },
+          {
+            category: 'Géographie',
+            categoryIcon: '🗺️',
+            clues: [
+              'Capitale de l\'Italie',
+              'On y trouve le Colisée',
+              'Tous les chemins mènent à cette ville'
+            ],
+            answer: 'ROME',
+            points: [8, 4, 2],
+            boxCount: 4
+          },
+          {
+            category: 'Science',
+            categoryIcon: '🔬',
+            clues: [
+              'Gaz essentiel à la respiration',
+              'Il représente 21% de l\'air',
+              'Sa formule chimique est O2'
+            ],
+            answer: 'OXYGENE',
+            points: [8, 4, 2],
+            boxCount: 7
+          }
+        ],
+        '2025-12-08': [
+          {
+            category: 'Musique',
+            categoryIcon: '🎵',
+            clues: [
+              'Instrument à vent en cuivre',
+              'Utilisé dans le jazz et les orchestres',
+              'Louis Armstrong en jouait'
+            ],
+            answer: 'TROMPETTE',
+            points: [8, 4, 2],
+            boxCount: 9
+          },
+          {
+            category: 'Histoire',
+            categoryIcon: '📜',
+            clues: [
+              'Monuments funéraires égyptiens',
+              'On en trouve à Gizeh',
+              'Construites pour les pharaons'
+            ],
+            answer: 'PYRAMIDES',
+            points: [8, 4, 2],
+            boxCount: 9
+          },
+          {
+            category: 'Sport',
+            categoryIcon: '🎾',
+            clues: [
+              'Sport de raquette qui se joue sur gazon, terre battue ou dur',
+              'Roland-Garros est un tournoi de ce sport',
+              'Le filet sépare les deux joueurs'
+            ],
+            answer: 'TENNIS',
+            points: [8, 4, 2],
+            boxCount: 6
+          }
+        ],
+        '2025-12-09': [
+          {
+            category: 'Animaux',
+            categoryIcon: '🐧',
+            clues: [
+              'Oiseau noir et blanc qui ne peut pas voler',
+              'Il vit en Antarctique',
+              'Il se déplace en glissant sur le ventre'
+            ],
+            answer: 'MANCHOT',
+            points: [8, 4, 2],
+            boxCount: 7
+          },
+          {
+            category: 'Littérature',
+            categoryIcon: '📚',
+            clues: [
+              'Célèbre détective créé par Arthur Conan Doyle',
+              'Il habite au 221B Baker Street',
+              'Son ami s\'appelle Watson'
+            ],
+            answer: 'HOLMES',
+            points: [8, 4, 2],
+            boxCount: 6
+          },
+          {
+            category: 'Gastronomie',
+            categoryIcon: '🍫',
+            clues: [
+              'Confiserie faite à partir de cacao',
+              'Peut être noir, au lait ou blanc',
+              'Originaire d\'Amérique centrale'
+            ],
+            answer: 'CHOCOLAT',
+            points: [8, 4, 2],
+            boxCount: 8
+          }
+        ],
+        '2025-12-10': [
+          {
+            category: 'Géographie',
+            categoryIcon: '🗺️',
+            clues: [
+              'Le plus grand pays du monde par sa superficie',
+              'Il s\'étend sur deux continents',
+              'Sa capitale est Moscou'
+            ],
+            answer: 'RUSSIE',
+            points: [8, 4, 2],
+            boxCount: 6
+          },
+          {
+            category: 'Technologie',
+            categoryIcon: '📱',
+            clues: [
+              'Marque de téléphones créée par Steve Jobs',
+              'Son logo est une pomme croquée',
+              'Modèles: 13, 14, 15...'
+            ],
+            answer: 'IPHONE',
+            points: [8, 4, 2],
+            boxCount: 6
+          },
+          {
+            category: 'Nature',
+            categoryIcon: '🌋',
+            clues: [
+              'Montagne qui crache de la lave',
+              'Peut être actif ou éteint',
+              'Le Vésuve en est un célèbre'
+            ],
+            answer: 'VOLCAN',
+            points: [8, 4, 2],
+            boxCount: 6
+          }
+        ],
+        '2025-12-11': [
+          {
+            category: 'Cinéma',
+            categoryIcon: '🎬',
+            clues: [
+              'Saga spatiale créée par George Lucas',
+              'La Force est avec eux',
+              'Personnages: Luke, Leia, Han Solo'
+            ],
+            answer: 'STARWARS',
+            points: [8, 4, 2],
+            boxCount: 8
+          },
+          {
+            category: 'Sport',
+            categoryIcon: '🏀',
+            clues: [
+              'Sport d\'équipe avec un ballon orange',
+              'On marque dans un panier',
+              'Michael Jordan y a excellé'
+            ],
+            answer: 'BASKETBALL',
             points: [8, 4, 2],
             boxCount: 10
           },
           {
             category: 'Musique',
-            categoryIcon: '🎵',
+            categoryIcon: '🎸',
             clues: [
-              'Cet instrument possède généralement 6 cordes',
-              'Il peut être électrique ou acoustique',
-              'Souvent utilisé dans le rock et le blues'
+              'Groupe britannique des années 60',
+              'John, Paul, George et Ringo',
+              'Leur ville natale est Liverpool'
             ],
-            answer: 'GUITARE',
+            answer: 'BEATLES',
+            points: [8, 4, 2],
+            boxCount: 7
+          }
+        ],
+        '2025-12-12': [
+          {
+            category: 'Histoire',
+            categoryIcon: '📜',
+            clues: [
+              'Reine d\'Égypte antique',
+              'Elle a séduit Jules César et Marc-Antoine',
+              'Elle est morte mordue par un serpent'
+            ],
+            answer: 'CLEOPATRE',
+            points: [8, 4, 2],
+            boxCount: 9
+          },
+          {
+            category: 'Art',
+            categoryIcon: '🎨',
+            clues: [
+              'Tableau célèbre de Léonard de Vinci',
+              'Portrait d\'une femme au sourire énigmatique',
+              'Exposée au Louvre'
+            ],
+            answer: 'JOCONDE',
             points: [8, 4, 2],
             boxCount: 7
           },
           {
-            category: 'Nature',
-            categoryIcon: '🌳',
+            category: 'Astronomie',
+            categoryIcon: '🌍',
             clues: [
-              'Cet animal peut peser jusqu\'à 6 tonnes',
-              'Il possède une trompe préhensile',
-              'C\'est le plus grand mammifère terrestre'
+              'Planète rouge du système solaire',
+              'Quatrième planète depuis le Soleil',
+              'Son nom vient du dieu romain de la guerre'
             ],
-            answer: 'ELEPHANT',
+            answer: 'MARS',
             points: [8, 4, 2],
-            boxCount: 8
-          }
-        ],
-        '2025-12-06': [
-          {
-            category: 'Sport',
-            categoryIcon: '⚽',
-            clues: [
-              'Cet événement sportif a été créé en Grèce antique et ressuscité en 1896',
-              'Symbole : cinq anneaux entrelacés de couleurs différentes',
-              'Compétition internationale tous les 4 ans'
-            ],
-            answer: 'OLYMPIQUES',
-            points: [8, 4, 2],
-            boxCount: 10
-          },
-          {
-            category: 'Gastronomie',
-            categoryIcon: '🍕',
-            clues: [
-              'Ce plat rond est originaire de Naples',
-              'Sa version "Margherita" est la plus classique',
-              'Se compose d\'une pâte, sauce tomate et fromage'
-            ],
-            answer: 'PIZZA',
-            points: [8, 4, 2],
-            boxCount: 5
-          },
-          {
-            category: 'Technologie',
-            categoryIcon: '💻',
-            clues: [
-              'Ce réseau a été créé dans les années 1960-70 pour des fins militaires',
-              'Il utilise des protocoles comme HTTP et TCP/IP',
-              'Accessible via un navigateur web'
-            ],
-            answer: 'INTERNET',
-            points: [8, 4, 2],
-            boxCount: 8
+            boxCount: 4
           }
         ]
       };
@@ -345,15 +673,28 @@
         return now.toISOString().split('T')[0];
       };
 
+      const formatDate = (dateStr) => {
+        const date = new Date(dateStr + 'T00:00:00');
+        return date.toLocaleDateString('fr-FR', { 
+          day: 'numeric', 
+          month: 'short'
+        });
+      };
+
       const todayStr = getTodayString();
-      const dailyQuestions = DAILY_QUESTIONS[todayStr];
+      const [selectedDate, setSelectedDate] = React.useState(todayStr);
+      const dailyQuestions = DAILY_QUESTIONS[selectedDate];
+      const isToday = selectedDate === todayStr;
+      
+      // Obtenir les dates disponibles
+      const availableDates = Object.keys(DAILY_QUESTIONS).sort().reverse();
       
       if (!dailyQuestions) {
         return (
           <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 flex items-center justify-center p-4">
             <div className="text-center">
               <p className="text-xl text-amber-800 font-bold">
-                Pas de quiz disponible aujourd'hui
+                Pas de quiz disponible pour cette date
               </p>
             </div>
           </div>
@@ -374,32 +715,33 @@
       const [errorMessage, setErrorMessage] = React.useState('');
       const inputRefs = React.useRef([]);
 
-      // Charger la progression au démarrage
+      // Charger le score total (seulement pour aujourd'hui)
       React.useEffect(() => {
         const loadProgress = async () => {
           try {
-            const totalScoreData = await storage.get(`quiz-total-${todayStr}`);
-            if (totalScoreData && totalScoreData.value) {
-              setTotalScore(JSON.parse(totalScoreData.value));
-            }
+            if (isToday) {
+              const totalScoreData = await storage.get(`quiz-total-${todayStr}`);
+              if (totalScoreData && totalScoreData.value) {
+                setTotalScore(JSON.parse(totalScoreData.value));
+              }
 
-            // Charger l'index de la question actuelle
-            const currentIndexData = await storage.get(`quiz-current-index-${todayStr}`);
-            if (currentIndexData && currentIndexData.value) {
-              setCurrentQuestionIndex(JSON.parse(currentIndexData.value));
+              const currentIndexData = await storage.get(`quiz-current-index-${todayStr}`);
+              if (currentIndexData && currentIndexData.value) {
+                setCurrentQuestionIndex(JSON.parse(currentIndexData.value));
+              }
             }
           } catch (error) {
             console.log('No saved progress');
           }
         };
         loadProgress();
-      }, [todayStr]);
+      }, [todayStr, isToday]);
 
       // Charger la progression de la question actuelle
       React.useEffect(() => {
         const loadQuestionProgress = async () => {
           try {
-            const savedData = await storage.get(`quiz-${todayStr}-${currentQuestionIndex}`);
+            const savedData = await storage.get(`quiz-${selectedDate}-${currentQuestionIndex}`);
             if (savedData && savedData.value) {
               const data = JSON.parse(savedData.value);
               setUserAnswer(data.userAnswer || Array(question.boxCount).fill(''));
@@ -424,11 +766,16 @@
           }
         };
         loadQuestionProgress();
-      }, [currentQuestionIndex]);
+      }, [currentQuestionIndex, selectedDate]);
+
+      // Réinitialiser l'index de question quand on change de date
+      React.useEffect(() => {
+        setCurrentQuestionIndex(0);
+      }, [selectedDate]);
 
       const saveProgress = async () => {
         try {
-          await storage.set(`quiz-${todayStr}-${currentQuestionIndex}`, JSON.stringify({
+          await storage.set(`quiz-${selectedDate}-${currentQuestionIndex}`, JSON.stringify({
             userAnswer,
             currentClue,
             isComplete,
@@ -436,8 +783,10 @@
             wrongAnswers
           }));
           
-          await storage.set(`quiz-total-${todayStr}`, JSON.stringify(totalScore));
-          await storage.set(`quiz-current-index-${todayStr}`, JSON.stringify(currentQuestionIndex));
+          if (isToday) {
+            await storage.set(`quiz-total-${todayStr}`, JSON.stringify(totalScore));
+            await storage.set(`quiz-current-index-${todayStr}`, JSON.stringify(currentQuestionIndex));
+          }
         } catch (error) {
           console.error('Failed to save progress');
         }
@@ -467,7 +816,7 @@
         if (letter && index < question.boxCount - 1) {
           setTimeout(() => {
             inputRefs.current[index + 1]?.focus();
-          }, 065);
+          }, 100);
         }
       };
 
@@ -478,7 +827,7 @@
         } else if (e.key === 'Backspace' && !userAnswer[index] && index > 0) {
           setTimeout(() => {
             inputRefs.current[index - 1]?.focus();
-          }, 065);
+          }, 100);
         }
       };
 
@@ -489,9 +838,9 @@
           setErrorMessage('Vous avez déjà essayé cette réponse !');
           setShowError(true);
           setUserAnswer(Array(question.boxCount).fill(''));
+          inputRefs.current[0]?.focus();
           setTimeout(() => {
             setShowError(false);
-            inputRefs.current[0]?.focus();
           }, 3000);
           return;
         }
@@ -501,14 +850,13 @@
         if (correct && !isComplete) {
           const points = question.points[currentClue];
           setQuestionScore(points);
-          setTotalScore(prev => prev + points);
+          if (isToday) {
+            setTotalScore(prev => prev + points);
+            setShowScoreAnimation(true);
+            setTimeout(() => setShowScoreAnimation(false), 600);
+          }
           setIsComplete(true);
           
-          // Animation du score
-          setShowScoreAnimation(true);
-          setTimeout(() => setShowScoreAnimation(false), 600);
-          
-          // Passer à la question suivante après 2 secondes
           setTimeout(() => {
             if (currentQuestionIndex < dailyQuestions.length - 1) {
               setCurrentQuestionIndex(prev => prev + 1);
@@ -537,6 +885,10 @@
         setCurrentQuestionIndex(index);
       };
 
+      const changeDate = (date) => {
+        setSelectedDate(date);
+      };
+
       return (
         <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 p-4">
           <div className="max-w-2xl mx-auto">
@@ -545,20 +897,48 @@
                 Quiz du Jour
               </h1>
               <p className="text-amber-700 text-lg font-semibold">
-                {new Date(todayStr).toLocaleDateString('fr-FR', { 
+                {new Date(selectedDate + 'T00:00:00').toLocaleDateString('fr-FR', { 
                   weekday: 'long', 
                   year: 'numeric', 
                   month: 'long', 
                   day: 'numeric' 
                 })}
               </p>
+              {!isToday && (
+                <p className="text-amber-600 text-base font-medium mt-2">
+                  📚 Mode pratique - Les points ne comptent pas
+                </p>
+              )}
             </div>
 
-            <div className="text-center mb-6">
-              <div className="inline-block bg-gradient-to-r from-yellow-100 to-amber-100 px-8 py-4 rounded-2xl border-3 border-amber-400 shadow-lg">
-                <span className={`text-3xl font-black text-amber-900 ${showScoreAnimation ? 'score-animation' : ''}`}>
-                  🏆 Score Total: {totalScore}
-                </span>
+            {isToday && (
+              <div className="text-center mb-6">
+                <div className="inline-block bg-gradient-to-r from-yellow-100 to-amber-100 px-8 py-4 rounded-2xl border-3 border-amber-400 shadow-lg">
+                  <span className={`text-3xl font-black text-amber-900 ${showScoreAnimation ? 'score-animation' : ''}`}>
+                    🏆 Score Total: {totalScore}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* Sélecteur de dates */}
+            <div className="mb-6 overflow-x-auto">
+              <div className="flex gap-2 justify-center whitespace-nowrap px-4">
+                {availableDates.map((date) => (
+                  <button
+                    key={date}
+                    onClick={() => changeDate(date)}
+                    className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all hover:scale-105 shadow-sm ${
+                      selectedDate === date
+                        ? date === todayStr
+                          ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white'
+                          : 'bg-gradient-to-r from-gray-500 to-gray-600 text-white'
+                        : 'bg-white text-gray-600 border-2 border-gray-300 hover:border-gray-400'
+                    }`}
+                  >
+                    {date === todayStr ? "Aujourd'hui" : formatDate(date)}
+                  </button>
+                ))}
               </div>
             </div>
 
@@ -688,13 +1068,17 @@
                         {question.answer}
                       </p>
                     )}
-                    <p className="text-xl font-bold text-amber-800 mt-4">
-                      Points gagnés: +{question.points[currentClue]}
-                    </p>
-                    {userAnswer.join('').trim() === question.answer && currentQuestionIndex < dailyQuestions.length - 1 && (
-                      <p className="text-lg font-semibold text-amber-700 mt-3">
-                        Passage à la question suivante... ⏭️
-                      </p>
+                    {userAnswer.join('').trim() === question.answer && (
+                      <>
+                        <p className="text-xl font-bold text-amber-800 mt-4">
+                          Points gagnés: +{question.points[currentClue]}
+                        </p>
+                        {isToday && currentQuestionIndex < dailyQuestions.length - 1 && (
+                          <p className="text-lg font-semibold text-amber-700 mt-3">
+                            Passage à la question suivante... ⏭️
+                          </p>
+                        )}
+                      </>
                     )}
                   </div>
                 </div>
@@ -710,4 +1094,3 @@
   </script>
 </body>
 </html>
-

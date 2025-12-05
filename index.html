@@ -41,6 +41,7 @@
     .mb-6 { margin-bottom: 1.5rem; }
     .mb-8 { margin-bottom: 2rem; }
     .mt-2 { margin-top: 0.5rem; }
+    .mt-3 { margin-top: 0.75rem; }
     .mt-4 { margin-top: 1rem; }
     .mt-6 { margin-top: 1.5rem; }
     
@@ -638,4 +639,74 @@
                     maxLength="1"
                     value={letter}
                     onChange={(e) => handleInputChange(index, e.target.value)}
-                    onKeyDown={(e) => handleKeyDown(index,
+                    onKeyDown={(e) => handleKeyDown(index, e)}
+                    disabled={isComplete}
+                    className={`w-12 h-12 text-center text-2xl font-bold uppercase rounded-lg border-3 transition-all duration-150
+                      ${isComplete && letter === question.answer[index]
+                        ? 'bg-green-100 border-green-500 text-green-800'
+                        : isComplete
+                        ? 'bg-red-100 border-red-500 text-red-800'
+                        : 'bg-white border-amber-300 text-amber-900'
+                      } ${isComplete ? 'cursor-not-allowed' : 'hover:border-orange-400'}`}
+                  />
+                ))}
+              </div>
+
+              {!isComplete && (
+                <div className="flex gap-3 justify-center">
+                  <button
+                    onClick={checkAnswer}
+                    className="px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl font-bold text-lg hover:from-amber-600 hover:to-orange-600 transition-all hover:scale-105 shadow-lg"
+                  >
+                    Vérifier
+                  </button>
+                  {currentClue < question.clues.length - 1 && (
+                    <button
+                      onClick={nextClue}
+                      className="px-8 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl font-bold text-lg hover:from-blue-600 hover:to-indigo-600 transition-all hover:scale-105 shadow-lg"
+                    >
+                      Indice suivant
+                    </button>
+                  )}
+                </div>
+              )}
+
+              {isComplete && (
+                <div className="mt-6 text-center slide-up">
+                  <div className={`p-6 rounded-xl border-3 ${
+                    userAnswer.join('').trim() === question.answer
+                      ? 'bg-gradient-to-r from-green-50 to-emerald-50 border-green-400'
+                      : 'bg-gradient-to-r from-red-50 to-orange-50 border-red-400'
+                  }`}>
+                    <p className="text-2xl font-black mb-2">
+                      {userAnswer.join('').trim() === question.answer
+                        ? '🎉 Bravo! Bonne réponse!'
+                        : '❌ Dommage! La réponse était:'}
+                    </p>
+                    {userAnswer.join('').trim() !== question.answer && (
+                      <p className="text-3xl font-black text-amber-900 mt-2">
+                        {question.answer}
+                      </p>
+                    )}
+                    <p className="text-xl font-bold text-amber-800 mt-4">
+                      Points gagnés: +{question.points[currentClue]}
+                    </p>
+                    {userAnswer.join('').trim() === question.answer && currentQuestionIndex < dailyQuestions.length - 1 && (
+                      <p className="text-lg font-semibold text-amber-700 mt-3">
+                        Passage à la question suivante... ⏭️
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<DailyQuiz />);
+  </script>
+</body>
+</html>

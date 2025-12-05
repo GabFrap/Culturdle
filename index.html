@@ -8,7 +8,7 @@
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap');
     
     * {
       margin: 0;
@@ -17,7 +17,7 @@
     }
     
     body {
-      font-family: 'Comic Neue', 'Comic Sans MS', cursive;
+      font-family: 'Quicksand', sans-serif;
     }
     
     .min-h-screen { min-height: 100vh; }
@@ -56,6 +56,8 @@
     .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
     
     .font-black { font-weight: 900; }
+    .font-bold { font-weight: 700; }
+    .font-semibold { font-weight: 600; }
     .font-medium { font-weight: 500; }
     .tracking-tight { letter-spacing: -0.025em; }
     .uppercase { text-transform: uppercase; }
@@ -136,6 +138,7 @@
     
     .transition-all { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
     .duration-150 { transition-duration: 150ms; }
+    .duration-300 { transition-duration: 300ms; }
     
     .scale-110 { transform: scale(1.1); }
     .hover\:scale-105:hover { transform: scale(1.05); }
@@ -167,6 +170,31 @@
     
     input:disabled {
       cursor: not-allowed;
+    }
+
+    @keyframes scoreIncrease {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); color: #15803d; }
+      100% { transform: scale(1); }
+    }
+
+    .score-animation {
+      animation: scoreIncrease 0.6s ease-in-out;
+    }
+
+    @keyframes slideUp {
+      from { 
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide-up {
+      animation: slideUp 0.3s ease-out;
     }
   </style>
 </head>
@@ -323,7 +351,7 @@
         return (
           <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 flex items-center justify-center p-4">
             <div className="text-center">
-              <p className="text-xl text-amber-800 font-black">
+              <p className="text-xl text-amber-800 font-bold">
                 Pas de quiz disponible aujourd'hui
               </p>
             </div>
@@ -333,6 +361,7 @@
 
       const [currentQuestionIndex, setCurrentQuestionIndex] = React.useState(0);
       const [totalScore, setTotalScore] = React.useState(0);
+      const [showScoreAnimation, setShowScoreAnimation] = React.useState(false);
       const question = dailyQuestions[currentQuestionIndex];
       
       const [userAnswer, setUserAnswer] = React.useState(Array(question.boxCount).fill(''));
@@ -344,6 +373,7 @@
       const [errorMessage, setErrorMessage] = React.useState('');
       const inputRefs = React.useRef([]);
 
+      // Charger la progression au démarrage
       React.useEffect(() => {
         const loadProgress = async () => {
           try {
@@ -352,6 +382,22 @@
               setTotalScore(JSON.parse(totalScoreData.value));
             }
 
+            // Charger l'index de la question actuelle
+            const currentIndexData = await storage.get(`quiz-current-index-${todayStr}`);
+            if (currentIndexData && currentIndexData.value) {
+              setCurrentQuestionIndex(JSON.parse(currentIndexData.value));
+            }
+          } catch (error) {
+            console.log('No saved progress');
+          }
+        };
+        loadProgress();
+      }, [todayStr]);
+
+      // Charger la progression de la question actuelle
+      React.useEffect(() => {
+        const loadQuestionProgress = async () => {
+          try {
             const savedData = await storage.get(`quiz-${todayStr}-${currentQuestionIndex}`);
             if (savedData && savedData.value) {
               const data = JSON.parse(savedData.value);
@@ -368,7 +414,7 @@
               setWrongAnswers([]);
             }
           } catch (error) {
-            console.log('No saved progress');
+            console.log('No saved question progress');
             setUserAnswer(Array(question.boxCount).fill(''));
             setCurrentClue(0);
             setIsComplete(false);
@@ -376,8 +422,8 @@
             setWrongAnswers([]);
           }
         };
-        loadProgress();
-      }, [todayStr, currentQuestionIndex]);
+        loadQuestionProgress();
+      }, [currentQuestionIndex]);
 
       const saveProgress = async () => {
         try {
@@ -390,6 +436,7 @@
           }));
           
           await storage.set(`quiz-total-${todayStr}`, JSON.stringify(totalScore));
+          await storage.set(`quiz-current-index-${todayStr}`, JSON.stringify(currentQuestionIndex));
         } catch (error) {
           console.error('Failed to save progress');
         }
@@ -397,7 +444,7 @@
 
       React.useEffect(() => {
         saveProgress();
-      }, [userAnswer, currentClue, isComplete, questionScore, totalScore, wrongAnswers]);
+      }, [userAnswer, currentClue, isComplete, questionScore, totalScore, wrongAnswers, currentQuestionIndex]);
 
       const handleInputChange = (index, value) => {
         if (isComplete) return;
@@ -419,26 +466,32 @@
         if (letter && index < question.boxCount - 1) {
           setTimeout(() => {
             inputRefs.current[index + 1]?.focus();
-          }, 50);
+          }, 100);
         }
       };
 
       const handleKeyDown = (index, e) => {
-        if (e.key === 'Backspace' && !userAnswer[index] && index > 0) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          checkAnswer();
+        } else if (e.key === 'Backspace' && !userAnswer[index] && index > 0) {
           setTimeout(() => {
             inputRefs.current[index - 1]?.focus();
-          }, 50);
+          }, 100);
         }
       };
 
       const checkAnswer = () => {
         const answer = userAnswer.join('').trim();
         
-        // Vérifier si la réponse a déjà été essayée
         if (wrongAnswers.includes(answer)) {
           setErrorMessage('Vous avez déjà essayé cette réponse !');
           setShowError(true);
-          setTimeout(() => setShowError(false), 3000);
+          setUserAnswer(Array(question.boxCount).fill(''));
+          setTimeout(() => {
+            setShowError(false);
+            inputRefs.current[0]?.focus();
+          }, 3000);
           return;
         }
         
@@ -449,17 +502,25 @@
           setQuestionScore(points);
           setTotalScore(prev => prev + points);
           setIsComplete(true);
+          
+          // Animation du score
+          setShowScoreAnimation(true);
+          setTimeout(() => setShowScoreAnimation(false), 600);
+          
+          // Passer à la question suivante après 2 secondes
+          setTimeout(() => {
+            if (currentQuestionIndex < dailyQuestions.length - 1) {
+              setCurrentQuestionIndex(prev => prev + 1);
+            }
+          }, 2000);
         } else if (!correct && currentClue < question.clues.length - 1) {
-          // Mauvaise réponse mais il reste des indices
           setWrongAnswers(prev => [...prev, answer]);
           setUserAnswer(Array(question.boxCount).fill(''));
           nextClue();
-          // Focus sur le premier input
           setTimeout(() => {
             inputRefs.current[0]?.focus();
           }, 100);
         } else {
-          // Mauvaise réponse et plus d'indices
           setWrongAnswers(prev => [...prev, answer]);
           setIsComplete(true);
         }
@@ -482,7 +543,7 @@
               <h1 className="text-5xl font-black text-amber-900 mb-2 tracking-tight">
                 Quiz du Jour
               </h1>
-              <p className="text-amber-700 text-lg font-medium">
+              <p className="text-amber-700 text-lg font-semibold">
                 {new Date(todayStr).toLocaleDateString('fr-FR', { 
                   weekday: 'long', 
                   year: 'numeric', 
@@ -494,7 +555,7 @@
 
             <div className="text-center mb-6">
               <div className="inline-block bg-gradient-to-r from-yellow-100 to-amber-100 px-8 py-4 rounded-2xl border-3 border-amber-400 shadow-lg">
-                <span className="text-3xl font-black text-amber-900">
+                <span className={`text-3xl font-black text-amber-900 ${showScoreAnimation ? 'score-animation' : ''}`}>
                   🏆 Score Total: {totalScore}
                 </span>
               </div>
@@ -505,7 +566,7 @@
                 <button
                   key={index}
                   onClick={() => changeQuestion(index)}
-                  className={`px-6 py-3 rounded-xl font-black text-lg transition-all hover:scale-105 shadow-md ${
+                  className={`px-6 py-3 rounded-xl font-bold text-lg transition-all hover:scale-105 shadow-md ${
                     currentQuestionIndex === index
                       ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white'
                       : 'bg-white text-amber-800 border-2 border-amber-300 hover:border-amber-400'
@@ -516,7 +577,7 @@
               ))}
             </div>
 
-            <div className="bg-white rounded-2xl shadow-xl p-8 border-4 border-amber-200">
+            <div className="bg-white rounded-2xl shadow-xl p-8 border-4 border-amber-200 slide-up">
               <div className="flex items-center justify-center gap-3 mb-6">
                 <span style={{fontSize: '2.5rem'}}>{question.categoryIcon}</span>
                 <h2 className="text-2xl font-black text-amber-800">
@@ -526,7 +587,7 @@
 
               <div className="text-center mb-6">
                 <div className="inline-block bg-gradient-to-r from-amber-100 to-orange-100 px-6 py-3 rounded-full border-2 border-amber-300">
-                  <span className="text-2xl font-black text-amber-900">
+                  <span className="text-2xl font-bold text-amber-900">
                     Score: {questionScore}
                   </span>
                 </div>
@@ -543,10 +604,10 @@
                     }`}
                   >
                     <div className="flex items-start gap-3">
-                      <span className="flex-shrink-0 w-8 h-8 bg-amber-500 text-white rounded-full flex items-center justify-center font-black text-sm">
+                      <span className="flex-shrink-0 w-8 h-8 bg-amber-500 text-white rounded-full flex items-center justify-center font-bold text-sm">
                         {index + 1}
                       </span>
-                      <p className="text-gray-800 text-lg pt-1 font-medium">
+                      <p className="text-gray-800 text-lg pt-1 font-semibold">
                         {index <= currentClue ? clue : '???'}
                       </p>
                     </div>
@@ -555,14 +616,14 @@
               </div>
 
               <div className="mb-6 p-4 bg-amber-50 border-2 border-amber-200 rounded-xl">
-                <p className="text-center text-amber-800 font-medium">
+                <p className="text-center text-amber-800 font-semibold">
                   💡 Entrez votre réponse (le nombre de cases peut être exact ou légèrement supérieur)
                 </p>
               </div>
 
               {showError && (
                 <div className="mb-6 p-4 bg-red-100 border-2 border-red-400 rounded-xl">
-                  <p className="text-center text-red-800 font-black">
+                  <p className="text-center text-red-800 font-bold">
                     ⚠️ {errorMessage}
                   </p>
                 </div>
@@ -577,71 +638,4 @@
                     maxLength="1"
                     value={letter}
                     onChange={(e) => handleInputChange(index, e.target.value)}
-                    onKeyDown={(e) => handleKeyDown(index, e)}
-                    disabled={isComplete}
-                    className={`w-12 h-12 text-center text-2xl font-black uppercase rounded-lg border-3 transition-all duration-150
-                      ${isComplete && letter === question.answer[index]
-                        ? 'bg-green-100 border-green-500 text-green-800'
-                        : isComplete
-                        ? 'bg-red-100 border-red-500 text-red-800'
-                        : 'bg-white border-amber-300 text-amber-900'
-                      } ${isComplete ? 'cursor-not-allowed' : 'hover:border-orange-400'}`}
-                  />
-                ))}
-              </div>
-
-              {!isComplete && (
-                <div className="flex gap-3 justify-center">
-                  <button
-                    onClick={checkAnswer}
-                    className="px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl font-black text-lg hover:from-amber-600 hover:to-orange-600 transition-all hover:scale-105 shadow-lg"
-                  >
-                    Vérifier
-                  </button>
-                  {currentClue < question.clues.length - 1 && (
-                    <button
-                      onClick={nextClue}
-                      className="px-8 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl font-black text-lg hover:from-blue-600 hover:to-indigo-600 transition-all hover:scale-105 shadow-lg"
-                    >
-                      Indice suivant
-                    </button>
-                  )}
-                </div>
-              )}
-
-              {isComplete && (
-                <div className="mt-6 text-center">
-                  <div className={`p-6 rounded-xl border-3 ${
-                    userAnswer.join('').trim() === question.answer
-                      ? 'bg-gradient-to-r from-green-50 to-emerald-50 border-green-400'
-                      : 'bg-gradient-to-r from-red-50 to-orange-50 border-red-400'
-                  }`}>
-                    <p className="text-2xl font-black mb-2">
-                      {userAnswer.join('').trim() === question.answer
-                        ? '🎉 Bravo! Bonne réponse!'
-                        : '❌ Dommage! La réponse était:'}
-                    </p>
-                    {userAnswer.join('').trim() !== question.answer && (
-                      <p className="text-3xl font-black text-amber-900 mt-2">
-                        {question.answer}
-                      </p>
-                    )}
-                    <p className="text-xl font-black text-amber-800 mt-4">
-                      Points gagnés: +{question.points[currentClue]}
-                    </p>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<DailyQuiz />);
-  </script>
-</body>
-
-</html>
-
+                    onKeyDown={(e) => handleKeyDown(index,

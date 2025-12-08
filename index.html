@@ -21,22 +21,26 @@
     .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; } .px-4 { padding-left: 1rem; padding-right: 1rem; }
     .px-5 { padding-left: 1.25rem; padding-right: 1.25rem; } .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
     .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; } .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
-    .mb-2 { margin-bottom: 0.5rem; } .mb-5 { margin-bottom: 1.25rem; } .mb-6 { margin-bottom: 1.5rem; }
-    .mt-2 { margin-top: 0.5rem; } .mt-3 { margin-top: 0.75rem; }
+    .mb-1 { margin-bottom: 0.25rem; } .mb-2 { margin-bottom: 0.5rem; } .mb-3 { margin-bottom: 0.75rem; }
+    .mb-4 { margin-bottom: 1rem; } .mb-5 { margin-bottom: 1.25rem; } .mb-6 { margin-bottom: 1.5rem; }
+    .mt-2 { margin-top: 0.5rem; } .mt-3 { margin-top: 0.75rem; } .mt-4 { margin-top: 1rem; }
     .max-w-2xl { max-width: 42rem; } .mx-auto { margin-left: auto; margin-right: auto; }
     .text-center { text-align: center; }
     .text-4xl { font-size: 2.25rem; line-height: 2.5rem; } .text-2xl { font-size: 1.5rem; line-height: 2rem; }
     .text-xl { font-size: 1.25rem; line-height: 1.75rem; } .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
     .text-base { font-size: 1rem; line-height: 1.5rem; } .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+    .text-xs { font-size: 0.75rem; line-height: 1rem; }
     .font-black { font-weight: 900; } .font-bold { font-weight: 700; } .font-semibold { font-weight: 600; }
     .tracking-tight { letter-spacing: -0.025em; } .uppercase { text-transform: uppercase; }
     .text-amber-900 { color: #78350f; } .text-amber-800 { color: #92400e; } .text-amber-700 { color: #b45309; }
-    .text-amber-600 { color: #d97706; } .text-gray-800 { color: #1f2937; } .text-gray-400 { color: #9ca3af; }
-    .text-white { color: #ffffff; } .text-green-800 { color: #166534; } .text-red-800 { color: #991b1b; }
+    .text-amber-600 { color: #d97706; } .text-gray-800 { color: #1f2937; } .text-gray-600 { color: #4b5563; }
+    .text-gray-400 { color: #9ca3af; } .text-white { color: #ffffff; }
+    .text-green-800 { color: #166534; } .text-green-600 { color: #16a34a; } .text-red-800 { color: #991b1b; }
     .bg-white { background-color: #ffffff; } .bg-amber-50 { background-color: #fffbeb; }
     .bg-amber-500 { background-color: #f59e0b; } .bg-gray-50 { background-color: #f9fafb; }
     .bg-gray-100 { background-color: #f3f4f6; } .bg-gray-500 { background-color: #6b7280; }
-    .bg-green-100 { background-color: #dcfce7; } .bg-red-100 { background-color: #fee2e2; }
+    .bg-green-100 { background-color: #dcfce7; } .bg-green-500 { background-color: #22c55e; }
+    .bg-red-100 { background-color: #fee2e2; }
     .bg-gradient-to-r { background-image: linear-gradient(to right, var(--tw-gradient-stops)); }
     .from-yellow-100 { --tw-gradient-from: #fef9c3; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(254, 249, 195, 0)); }
     .to-amber-100 { --tw-gradient-to: #fef3c7; }
@@ -52,6 +56,8 @@
     .to-indigo-600 { --tw-gradient-to: #4f46e5; }
     .from-green-50 { --tw-gradient-from: #f0fdf4; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(240, 253, 244, 0)); }
     .to-emerald-50 { --tw-gradient-to: #ecfdf5; }
+    .from-green-500 { --tw-gradient-from: #22c55e; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(34, 197, 94, 0)); }
+    .to-green-600 { --tw-gradient-to: #16a34a; }
     .from-red-50 { --tw-gradient-from: #fef2f2; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(254, 242, 242, 0)); }
     .from-gray-500 { --tw-gradient-from: #6b7280; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(107, 114, 128, 0)); }
     .to-gray-600 { --tw-gradient-to: #4b5563; }
@@ -81,6 +87,7 @@
     .hover\:from-amber-600:hover { --tw-gradient-from: #d97706; } .hover\:to-orange-600:hover { --tw-gradient-to: #ea580c; }
     .hover\:from-blue-600:hover { --tw-gradient-from: #2563eb; } .hover\:to-indigo-600:hover { --tw-gradient-to: #4f46e5; }
     .hover\:from-gray-600:hover { --tw-gradient-from: #4b5563; } .hover\:to-gray-700:hover { --tw-gradient-to: #374151; }
+    .hover\:from-green-600:hover { --tw-gradient-from: #16a34a; } .hover\:to-green-700:hover { --tw-gradient-to: #15803d; }
     .opacity-50 { opacity: 0.5; } .cursor-not-allowed { cursor: not-allowed; }
     button { cursor: pointer; border: none; outline: none; }
     input { outline: none; }
@@ -98,7 +105,7 @@
       .py-3 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
       .w-14 { width: 3.5rem; } .h-14 { height: 3.5rem; }
       .gap-3 { gap: 0.5rem; } .gap-2 { gap: 0.375rem; }
-      .mb-5 { margin-bottom: 0.875rem; } .border-4 { border-width: 3px; }
+      .mb-5 { margin-bottom: 0.875rem; } .mb-4 { margin-bottom: 0.75rem; } .border-4 { border-width: 3px; }
     }
   </style>
 </head>
@@ -110,35 +117,35 @@
         '2025-12-07': [
           { category: 'Histoire', categoryIcon: '📜',
             clues: ['Cet empereur français a instauré le Code civil qui porte son nom en 1804 (prénom)', 'Il s\'est couronné lui-même à Notre-Dame de Paris', 'Né en Corse, exilé à Sainte-Hélène'],
-            answer: 'NAPOLEON', points: [8, 4, 2], boxCount: 9 },
+            answer: 'NAPOLEON', points: [20, 10, 5], boxCount: 9 },
           { category: 'Art', categoryIcon: '🎨',
-            clues: ['Ce peintre néerlandais a réalisé plus de 800 tableaux en 10 ans (nom de famille)', 'Il s\'est coupé une partie de l\'oreille en 1888', 'Célèbre pour ses tournesols et sa nuit étoilée'],
-            answer: 'VANGOGH', points: [8, 4, 2], boxCount: 8 },
+            clues: ['Ce peintre italien de la Renaissance a peint la Cène entre 1495 et 1498 (prénom)', 'Il a dessiné des machines volantes et étudié l\'anatomie humaine', 'Célèbre pour la Joconde'],
+            answer: 'LEONARD', points: [20, 10, 5], boxCount: 8 },
           { category: 'Géographie', categoryIcon: '🗺️',
             clues: ['Cette ville a été fondée selon la légende par Romulus en 753 av. J.-C.', 'On y trouve le Colisée et la Chapelle Sixtine', 'Tous les chemins mènent à cette capitale'],
-            answer: 'ROME', points: [8, 4, 2], boxCount: 5 }
+            answer: 'ROME', points: [20, 10, 5], boxCount: 5 }
         ],
         '2025-12-08': [
           { category: 'Géographie', categoryIcon: '🗺️',
             clues: ['Cette capitale a été rebâtie par le baron Haussmann au XIXe siècle', 'Surnommée la Ville Lumière', 'On y trouve la Tour Eiffel'],
-            answer: 'PARIS', points: [8, 4, 2], boxCount: 7 },
+            answer: 'PARIS', points: [20, 10, 5], boxCount: 7 },
           { category: 'Cinéma', categoryIcon: '🎬',
             clues: ['Ce film de 1997 détient le record de 11 Oscars partagé avec deux autres films', 'Il raconte une histoire d\'amour tragique sur l\'océan Atlantique', 'Leonardo DiCaprio et Kate Winslet en sont les vedettes'],
-            answer: 'TITANIC', points: [8, 4, 2], boxCount: 9 },
+            answer: 'TITANIC', points: [20, 10, 5], boxCount: 9 },
           { category: 'Science', categoryIcon: '🔬',
             clues: ['Cet organe possède un nœud sino-auriculaire qui génère l\'impulsion électrique', 'Il est composé de quatre cavités appelées oreillettes et ventricules', 'On peut sentir ses battements en prenant son pouls'],
-            answer: 'COEUR', points: [8, 4, 2], boxCount: 6 }
+            answer: 'COEUR', points: [20, 10, 5], boxCount: 6 }
         ],
         '2025-12-09': [
           { category: 'Littérature', categoryIcon: '📚',
             clues: ['Cet écrivain français a prononcé le discours "Misère" à l\'Assemblée en 1849 (nom de famille)', 'Il a créé les personnages Jean Valjean et Quasimodo', 'Auteur des Misérables et de Notre-Dame de Paris'],
-            answer: 'HUGO', points: [8, 4, 2], boxCount: 5 },
+            answer: 'HUGO', points: [20, 10, 5], boxCount: 5 },
           { category: 'Animaux', categoryIcon: '🦁',
             clues: ['Ce félin vit en troupe matriarcale, contrairement aux autres grands félins solitaires', 'Le mâle possède une crinière qui s\'assombrit avec l\'âge', 'Surnommé le roi de la jungle'],
-            answer: 'LION', points: [8, 4, 2], boxCount: 5 },
+            answer: 'LION', points: [20, 10, 5], boxCount: 5 },
           { category: 'Astronomie', categoryIcon: '🌙',
             clues: ['Ce satellite s\'éloigne de la Terre de 3,8 centimètres par an', 'Son cycle complet dure environ 29,5 jours', 'C\'est le seul satellite naturel de la Terre'],
-            answer: 'LUNE', points: [8, 4, 2], boxCount: 4 }
+            answer: 'LUNE', points: [20, 10, 5], boxCount: 4 }
         ]
       };
 
@@ -385,10 +392,20 @@
         }
       };
 
+      const goToToday = () => {
+        setSelectedDate(todayStr);
+      };
+
+      const goToNextQuestion = () => {
+        if (currentQuestionIndex < dailyQuestions.length - 1) {
+          setCurrentQuestionIndex(prev => prev + 1);
+        }
+      };
+
       return (
         <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 p-4">
           <div className="max-w-2xl mx-auto">
-            <div className="text-center mb-5 pt-6">
+            <div className="text-center mb-4 pt-6">
               <h1 className="text-4xl font-black text-amber-900 mb-2 tracking-tight">
                 Quiz du Jour
               </h1>
@@ -407,7 +424,13 @@
               )}
             </div>
 
-            <div className="text-center mb-5">
+            <div className="text-center mb-3">
+              <p className="text-xs text-gray-600 font-semibold">
+                Points par indice : <span className="text-green-600">20</span> / <span className="text-amber-600">10</span> / <span className="text-gray-600">5</span>
+              </p>
+            </div>
+
+            <div className="text-center mb-4">
               <div className="inline-block bg-gradient-to-r from-yellow-100 to-amber-100 px-6 py-3 rounded-2xl border-3 border-amber-400 shadow-lg">
                 <span className={`text-2xl font-black text-amber-900 ${showScoreAnimation ? 'score-animation' : ''}`}>
                   🏆 Score Total: {totalScore}
@@ -415,20 +438,28 @@
               </div>
             </div>
 
-              <div className="flex justify-between items-center mb-5">
-                <div className="flex gap-2">
-                  <button onClick={goToPreviousDay} ... >
-                    ← Précédent
+            <div className="flex justify-between items-center mb-4">
+              <div className="flex gap-2">
+                <button
+                  onClick={goToPreviousDay}
+                  disabled={!hasPreviousDate()}
+                  className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all shadow-md ${
+                    hasPreviousDate()
+                      ? 'bg-gradient-to-r from-gray-500 to-gray-600 text-white hover:from-gray-600 hover:to-gray-700 hover:scale-105'
+                      : 'bg-gray-100 text-gray-400 cursor-not-allowed opacity-50'
+                  }`}
+                >
+                  ← Précédent
+                </button>
+                {!isToday && (
+                  <button
+                    onClick={goToToday}
+                    className="px-4 py-2 rounded-lg font-semibold text-sm transition-all shadow-md bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:from-amber-600 hover:to-orange-600 hover:scale-105"
+                  >
+                    Aujourd'hui
                   </button>
-                  {!isToday && (
-                    <button
-                      onClick={() => setSelectedDate(todayStr)}
-                      className="px-4 py-2 rounded-lg font-semibold text-sm transition-all shadow-md bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:from-amber-600 hover:to-orange-600 hover:scale-105"
-                   >
-                      Aujourd'hui
-                    </button>
                 )}
-                </div>
+              </div>
               
               <div className="flex gap-2">
                 {dailyQuestions.map((q, index) => (
@@ -566,6 +597,15 @@
                       </p>
                     )}
                   </div>
+                  
+                  {currentQuestionIndex < dailyQuestions.length - 1 && (
+                    <button
+                      onClick={goToNextQuestion}
+                      className="mt-4 px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl font-bold text-base hover:from-green-600 hover:to-green-700 transition-all hover:scale-105 shadow-lg"
+                    >
+                      Question suivante →
+                    </button>
+                  )}
                 </div>
               )}
             </div>

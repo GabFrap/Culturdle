@@ -416,8 +416,8 @@
             </div>
 
             <div className="flex justify-between items-center mb-5">
-              <button
-                onClick={goToPreviousDay}
+              <div className="flex gap-2">
+                <button onClick={goToPreviousDay} ... >
                 disabled={!hasPreviousDate()}
                 className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all shadow-md ${
                   hasPreviousDate()
@@ -425,8 +425,16 @@
                     : 'bg-gray-100 text-gray-400 cursor-not-allowed opacity-50'
                 }`}
               >
-                ← Précédent
-              </button>
+                </button>
+                {!isToday && (
+                  <button
+                    onClick={() => setSelectedDate(todayStr)}
+                    className="px-4 py-2 rounded-lg font-semibold text-sm transition-all shadow-md bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:from-amber-600 hover:to-orange-600 hover:scale-105"
+                  >
+                   Aujourd'hui
+                  </button>
+                )}
+              </div>
               
               <div className="flex gap-2">
                 {dailyQuestions.map((q, index) => (
@@ -511,7 +519,7 @@
                     onChange={(e) => handleInputChange(index, e.target.value)}
                     onKeyDown={(e) => handleKeyDown(index, e)}
                     disabled={isComplete}
-                    className={`w-14 h-14 text-center text-2xl font-bold uppercase rounded-lg border-3 transition-all duration-150
+                    className={`w-14 h-14 text-center text-3xl font-bold uppercase rounded-lg border-3 transition-all duration-150
                       ${isComplete && letter === question.answer[index]
                         ? 'bg-green-100 border-green-500 text-green-800'
                         : isComplete
@@ -577,3 +585,4 @@
   </script>
 </body>
 </html>
+

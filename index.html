@@ -110,35 +110,35 @@
         '2025-12-07': [
           { category: 'Histoire', categoryIcon: '📜',
             clues: ['Cet empereur français a instauré le Code civil qui porte son nom en 1804 (prénom)', 'Il s\'est couronné lui-même à Notre-Dame de Paris', 'Né en Corse, exilé à Sainte-Hélène'],
-            answer: 'NAPOLEON', points: [20, 10, 5], boxCount: 9 },
+            answer: 'NAPOLEON', points: [8, 4, 2], boxCount: 9 },
           { category: 'Art', categoryIcon: '🎨',
             clues: ['Ce peintre néerlandais a réalisé plus de 800 tableaux en 10 ans (nom de famille)', 'Il s\'est coupé une partie de l\'oreille en 1888', 'Célèbre pour ses tournesols et sa nuit étoilée'],
-            answer: 'VANGOGH', points: [20, 10, 5], boxCount: 8 },
+            answer: 'VANGOGH', points: [8, 4, 2], boxCount: 8 },
           { category: 'Géographie', categoryIcon: '🗺️',
             clues: ['Cette ville a été fondée selon la légende par Romulus en 753 av. J.-C.', 'On y trouve le Colisée et la Chapelle Sixtine', 'Tous les chemins mènent à cette capitale'],
-            answer: 'ROME', points: [20, 10, 5], boxCount: 5 }
+            answer: 'ROME', points: [8, 4, 2], boxCount: 5 }
         ],
         '2025-12-08': [
           { category: 'Géographie', categoryIcon: '🗺️',
             clues: ['Cette capitale a été rebâtie par le baron Haussmann au XIXe siècle', 'Surnommée la Ville Lumière', 'On y trouve la Tour Eiffel'],
-            answer: 'PARIS', points: [20, 10, 5], boxCount: 7 },
+            answer: 'PARIS', points: [8, 4, 2], boxCount: 7 },
           { category: 'Cinéma', categoryIcon: '🎬',
             clues: ['Ce film de 1997 détient le record de 11 Oscars partagé avec deux autres films', 'Il raconte une histoire d\'amour tragique sur l\'océan Atlantique', 'Leonardo DiCaprio et Kate Winslet en sont les vedettes'],
-            answer: 'TITANIC', points: [20, 10, 5], boxCount: 9 },
+            answer: 'TITANIC', points: [8, 4, 2], boxCount: 9 },
           { category: 'Science', categoryIcon: '🔬',
             clues: ['Cet organe possède un nœud sino-auriculaire qui génère l\'impulsion électrique', 'Il est composé de quatre cavités appelées oreillettes et ventricules', 'On peut sentir ses battements en prenant son pouls'],
-            answer: 'COEUR', points: [20, 10, 5], boxCount: 6 }
+            answer: 'COEUR', points: [8, 4, 2], boxCount: 6 }
         ],
         '2025-12-09': [
           { category: 'Littérature', categoryIcon: '📚',
             clues: ['Cet écrivain français a prononcé le discours "Misère" à l\'Assemblée en 1849 (nom de famille)', 'Il a créé les personnages Jean Valjean et Quasimodo', 'Auteur des Misérables et de Notre-Dame de Paris'],
-            answer: 'HUGO', points: [20, 10, 5], boxCount: 5 },
+            answer: 'HUGO', points: [8, 4, 2], boxCount: 5 },
           { category: 'Animaux', categoryIcon: '🦁',
             clues: ['Ce félin vit en troupe matriarcale, contrairement aux autres grands félins solitaires', 'Le mâle possède une crinière qui s\'assombrit avec l\'âge', 'Surnommé le roi de la jungle'],
-            answer: 'LION', points: [20, 10, 5], boxCount: 5 },
+            answer: 'LION', points: [8, 4, 2], boxCount: 5 },
           { category: 'Astronomie', categoryIcon: '🌙',
             clues: ['Ce satellite s\'éloigne de la Terre de 3,8 centimètres par an', 'Son cycle complet dure environ 29,5 jours', 'C\'est le seul satellite naturel de la Terre'],
-            answer: 'LUNE', points: [20, 10, 5], boxCount: 4 }
+            answer: 'LUNE', points: [8, 4, 2], boxCount: 4 }
         ]
       };
 
@@ -415,26 +415,20 @@
               </div>
             </div>
 
-            <div className="flex justify-between items-center mb-5">
-              <div className="flex gap-2">
-                <button onClick={goToPreviousDay} ... >
-                disabled={!hasPreviousDate()}
-                className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all shadow-md ${
-                  hasPreviousDate()
-                    ? 'bg-gradient-to-r from-gray-500 to-gray-600 text-white hover:from-gray-600 hover:to-gray-700 hover:scale-105'
-                    : 'bg-gray-100 text-gray-400 cursor-not-allowed opacity-50'
-                }`}
-              >
-                </button>
-                {!isToday && (
-                  <button
-                    onClick={() => setSelectedDate(todayStr)}
-                    className="px-4 py-2 rounded-lg font-semibold text-sm transition-all shadow-md bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:from-amber-600 hover:to-orange-600 hover:scale-105"
-                  >
-                   Aujourd'hui
+              <div className="flex justify-between items-center mb-5">
+                <div className="flex gap-2">
+                  <button onClick={goToPreviousDay} ... >
+                    ← Précédent
                   </button>
+                  {!isToday && (
+                    <button
+                      onClick={() => setSelectedDate(todayStr)}
+                      className="px-4 py-2 rounded-lg font-semibold text-sm transition-all shadow-md bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:from-amber-600 hover:to-orange-600 hover:scale-105"
+                   >
+                      Aujourd'hui
+                    </button>
                 )}
-              </div>
+                </div>
               
               <div className="flex gap-2">
                 {dailyQuestions.map((q, index) => (
@@ -519,7 +513,7 @@
                     onChange={(e) => handleInputChange(index, e.target.value)}
                     onKeyDown={(e) => handleKeyDown(index, e)}
                     disabled={isComplete}
-                    className={`w-14 h-14 text-center text-3xl font-bold uppercase rounded-lg border-3 transition-all duration-150
+                    className={`w-14 h-14 text-center text-2xl font-bold uppercase rounded-lg border-3 transition-all duration-150
                       ${isComplete && letter === question.answer[index]
                         ? 'bg-green-100 border-green-500 text-green-800'
                         : isComplete
@@ -585,4 +579,3 @@
   </script>
 </body>
 </html>
-

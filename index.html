@@ -8,7 +8,7 @@
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700;900&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Quicksand', sans-serif; }
     .min-h-screen { min-height: 100vh; }
@@ -18,12 +18,14 @@
     .to-yellow-50 { --tw-gradient-to: #fefce8; }
     .p-3 { padding: 0.75rem; } .p-4 { padding: 1rem; } .p-5 { padding: 1.25rem; } .p-6 { padding: 1.5rem; }
     .pt-6 { padding-top: 1.5rem; } .pt-1 { padding-top: 0.25rem; }
+    .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
     .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; } .px-4 { padding-left: 1rem; padding-right: 1rem; }
     .px-5 { padding-left: 1.25rem; padding-right: 1.25rem; } .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
     .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; } .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
     .mb-1 { margin-bottom: 0.25rem; } .mb-2 { margin-bottom: 0.5rem; } .mb-3 { margin-bottom: 0.75rem; }
     .mb-4 { margin-bottom: 1rem; } .mb-5 { margin-bottom: 1.25rem; } .mb-6 { margin-bottom: 1.5rem; }
     .mt-2 { margin-top: 0.5rem; } .mt-3 { margin-top: 0.75rem; } .mt-4 { margin-top: 1rem; }
+    .mr-2 { margin-right: 0.5rem; } .ml-2 { margin-left: 0.5rem; }
     .max-w-2xl { max-width: 42rem; } .mx-auto { margin-left: auto; margin-right: auto; }
     .text-center { text-align: center; }
     .text-4xl { font-size: 2.25rem; line-height: 2.5rem; } .text-2xl { font-size: 1.5rem; line-height: 2rem; }
@@ -34,13 +36,15 @@
     .tracking-tight { letter-spacing: -0.025em; } .uppercase { text-transform: uppercase; }
     .text-amber-900 { color: #78350f; } .text-amber-800 { color: #92400e; } .text-amber-700 { color: #b45309; }
     .text-amber-600 { color: #d97706; } .text-gray-800 { color: #1f2937; } .text-gray-600 { color: #4b5563; }
-    .text-gray-400 { color: #9ca3af; } .text-white { color: #ffffff; }
+    .text-gray-500 { color: #6b7280; } .text-gray-400 { color: #9ca3af; } .text-gray-300 { color: #d1d5db; }
+    .text-white { color: #ffffff; }
     .text-green-800 { color: #166534; } .text-green-600 { color: #16a34a; } .text-red-800 { color: #991b1b; }
+    .text-purple-600 { color: #9333ea; }
     .bg-white { background-color: #ffffff; } .bg-amber-50 { background-color: #fffbeb; }
     .bg-amber-500 { background-color: #f59e0b; } .bg-gray-50 { background-color: #f9fafb; }
-    .bg-gray-100 { background-color: #f3f4f6; } .bg-gray-500 { background-color: #6b7280; }
-    .bg-green-100 { background-color: #dcfce7; } .bg-green-500 { background-color: #22c55e; }
-    .bg-red-100 { background-color: #fee2e2; }
+    .bg-gray-100 { background-color: #f3f4f6; } .bg-gray-200 { background-color: #e5e7eb; }
+    .bg-gray-500 { background-color: #6b7280; } .bg-green-100 { background-color: #dcfce7; }
+    .bg-green-500 { background-color: #22c55e; } .bg-red-100 { background-color: #fee2e2; }
     .bg-gradient-to-r { background-image: linear-gradient(to right, var(--tw-gradient-stops)); }
     .from-yellow-100 { --tw-gradient-from: #fef9c3; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(254, 249, 195, 0)); }
     .to-amber-100 { --tw-gradient-to: #fef3c7; }
@@ -63,23 +67,26 @@
     .to-gray-600 { --tw-gradient-to: #4b5563; }
     .from-gray-600 { --tw-gradient-from: #4b5563; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(75, 85, 99, 0)); }
     .to-gray-700 { --tw-gradient-to: #374151; }
-    .border-2 { border-width: 2px; } .border-3 { border-width: 3px; } .border-4 { border-width: 4px; }
+    .border { border-width: 1px; } .border-2 { border-width: 2px; } .border-3 { border-width: 3px; } .border-4 { border-width: 4px; }
     .border-amber-200 { border-color: #fde68a; } .border-amber-300 { border-color: #fcd34d; }
     .border-amber-400 { border-color: #fbbf24; } .border-orange-400 { border-color: #fb923c; }
-    .border-gray-200 { border-color: #e5e7eb; } .border-green-400 { border-color: #4ade80; }
-    .border-green-500 { border-color: #22c55e; } .border-red-400 { border-color: #f87171; }
-    .border-red-500 { border-color: #ef4444; }
+    .border-gray-200 { border-color: #e5e7eb; } .border-gray-300 { border-color: #d1d5db; }
+    .border-green-400 { border-color: #4ade80; } .border-green-500 { border-color: #22c55e; }
+    .border-red-400 { border-color: #f87171; } .border-red-500 { border-color: #ef4444; }
     .rounded-xl { border-radius: 0.75rem; } .rounded-2xl { border-radius: 1rem; }
-    .rounded-lg { border-radius: 0.5rem; } .rounded-full { border-radius: 9999px; }
+    .rounded-lg { border-radius: 0.5rem; } .rounded-md { border-radius: 0.375rem; } .rounded-full { border-radius: 9999px; }
     .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
     .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
     .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
-    .flex { display: flex; } .inline-block { display: inline-block; } .gap-2 { gap: 0.5rem; } .gap-3 { gap: 0.75rem; }
+    .flex { display: flex; } .inline-block { display: inline-block; } .inline-flex { display: inline-flex; }
+    .gap-1 { gap: 0.25rem; } .gap-2 { gap: 0.5rem; } .gap-3 { gap: 0.75rem; }
     .justify-center { justify-content: center; } .justify-between { justify-content: space-between; }
     .items-center { align-items: center; } .items-start { align-items: flex-start; }
     .flex-shrink-0 { flex-shrink: 0; } .flex-wrap { flex-wrap: wrap; }
     .space-y-3 > * + * { margin-top: 0.75rem; }
-    .w-7 { width: 1.75rem; } .h-7 { height: 1.75rem; } .w-14 { width: 3.5rem; } .h-14 { height: 3.5rem; }
+    .w-7 { width: 1.75rem; } .h-7 { height: 1.75rem; } .w-10 { width: 2.5rem; } .h-10 { height: 2.5rem; }
+    .w-11 { width: 2.75rem; } .h-11 { height: 2.75rem; } .w-12 { width: 3rem; } .h-12 { height: 3rem; }
+    .w-14 { width: 3.5rem; } .h-14 { height: 3.5rem; }
     .transition-all { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
     .duration-150 { transition-duration: 150ms; }
     .scale-110 { transform: scale(1.1); } .hover\:scale-105:hover { transform: scale(1.05); }
@@ -88,87 +95,235 @@
     .hover\:from-blue-600:hover { --tw-gradient-from: #2563eb; } .hover\:to-indigo-600:hover { --tw-gradient-to: #4f46e5; }
     .hover\:from-gray-600:hover { --tw-gradient-from: #4b5563; } .hover\:to-gray-700:hover { --tw-gradient-to: #374151; }
     .hover\:from-green-600:hover { --tw-gradient-from: #16a34a; } .hover\:to-green-700:hover { --tw-gradient-to: #15803d; }
-    .opacity-50 { opacity: 0.5; } .cursor-not-allowed { cursor: not-allowed; }
+    .hover\:bg-gray-200:hover { background-color: #e5e7eb; } .hover\:bg-gray-300:hover { background-color: #d1d5db; }
+    .opacity-50 { opacity: 0.5; } .opacity-40 { opacity: 0.4; } .opacity-30 { opacity: 0.3; }
+    .cursor-not-allowed { cursor: not-allowed; } .cursor-pointer { cursor: pointer; }
+    .relative { position: relative; } .absolute { position: absolute; } .z-50 { z-index: 50; }
     button { cursor: pointer; border: none; outline: none; }
-    input { outline: none; }
+    input { outline: none; font-weight: 900; }
     input:focus { border-color: #f97316; box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.1); }
     input:disabled { cursor: not-allowed; }
     @keyframes scoreIncrease { 0% { transform: scale(1); } 50% { transform: scale(1.2); color: #15803d; } 100% { transform: scale(1); } }
     .score-animation { animation: scoreIncrease 0.6s ease-in-out; }
     @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     .slide-up { animation: slideUp 0.3s ease-out; }
+    .calendar-popup { 
+      position: absolute; 
+      top: 100%; 
+      left: 0; 
+      margin-top: 0.5rem; 
+      background: white; 
+      border-radius: 0.5rem; 
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); 
+      padding: 1rem; 
+      z-index: 50; 
+      min-width: 200px;
+    }
     @media (max-width: 640px) {
-      .text-4xl { font-size: 1.875rem; line-height: 2.25rem; } .text-2xl { font-size: 1.25rem; line-height: 1.75rem; }
-      .text-xl { font-size: 1.125rem; line-height: 1.75rem; } .text-lg { font-size: 1rem; line-height: 1.5rem; }
+      .text-4xl { font-size: 1.875rem; line-height: 2.25rem; }
+      .text-2xl { font-size: 1.25rem; line-height: 1.75rem; }
+      .text-xl { font-size: 1.125rem; line-height: 1.75rem; }
+      .text-lg { font-size: 1rem; line-height: 1.5rem; }
       .text-base { font-size: 0.875rem; line-height: 1.25rem; }
-      .p-6 { padding: 1.25rem; } .px-6 { padding-left: 1rem; padding-right: 1rem; }
+      .p-6 { padding: 1.25rem; } .p-4 { padding: 0.875rem; }
+      .px-6 { padding-left: 1rem; padding-right: 1rem; }
+      .px-5 { padding-left: 0.875rem; padding-right: 0.875rem; }
+      .px-3 { padding-left: 0.5rem; padding-right: 0.5rem; }
+      .px-2 { padding-left: 0.375rem; padding-right: 0.375rem; }
       .py-3 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
-      .w-14 { width: 3.5rem; } .h-14 { height: 3.5rem; }
-      .gap-3 { gap: 0.5rem; } .gap-2 { gap: 0.375rem; }
-      .mb-5 { margin-bottom: 0.875rem; } .mb-4 { margin-bottom: 0.75rem; } .border-4 { border-width: 3px; }
+      .py-2 { padding-top: 0.375rem; padding-bottom: 0.375rem; }
+      .w-11 { width: 2.5rem; } .h-11 { height: 2.5rem; }
+      .gap-3 { gap: 0.5rem; } .gap-2 { gap: 0.375rem; } .gap-1 { gap: 0.2rem; }
     }
   </style>
 </head>
 <body>
   <div id="root"></div>
   <script type="text/babel">
-    function DailyQuiz() {
-      const DAILY_QUESTIONS = {
-        '2025-12-07': [
-          { category: 'Histoire', categoryIcon: '📜',
-            clues: ['Cet empereur français a instauré le Code civil qui porte son nom en 1804 (prénom)', 'Il s\'est couronné lui-même à Notre-Dame de Paris', 'Né en Corse, exilé à Sainte-Hélène'],
-            answer: 'NAPOLEON', points: [20, 10, 5], boxCount: 9 },
-          { category: 'Art', categoryIcon: '🎨',
-            clues: ['Ce peintre italien de la Renaissance a peint la Cène entre 1495 et 1498 (prénom)', 'Il a dessiné des machines volantes et étudié l\'anatomie humaine', 'Célèbre pour la Joconde'],
-            answer: 'LEONARD', points: [20, 10, 5], boxCount: 8 },
-          { category: 'Géographie', categoryIcon: '🗺️',
-            clues: ['Cette ville a été fondée selon la légende par Romulus en 753 av. J.-C.', 'On y trouve le Colisée et la Chapelle Sixtine', 'Tous les chemins mènent à cette capitale'],
-            answer: 'ROME', points: [20, 10, 5], boxCount: 5 }
-        ],
-        '2025-12-08': [
-          { category: 'Géographie', categoryIcon: '🗺️',
-            clues: ['Cette capitale a été rebâtie par le baron Haussmann au XIXe siècle', 'Surnommée la Ville Lumière', 'On y trouve la Tour Eiffel'],
-            answer: 'PARIS', points: [20, 10, 5], boxCount: 7 },
-          { category: 'Cinéma', categoryIcon: '🎬',
-            clues: ['Ce film de 1997 détient le record de 11 Oscars partagé avec deux autres films', 'Il raconte une histoire d\'amour tragique sur l\'océan Atlantique', 'Leonardo DiCaprio et Kate Winslet en sont les vedettes'],
-            answer: 'TITANIC', points: [20, 10, 5], boxCount: 9 },
-          { category: 'Science', categoryIcon: '🔬',
-            clues: ['Cet organe possède un nœud sino-auriculaire qui génère l\'impulsion électrique', 'Il est composé de quatre cavités appelées oreillettes et ventricules', 'On peut sentir ses battements en prenant son pouls'],
-            answer: 'COEUR', points: [20, 10, 5], boxCount: 6 }
-        ],
-        '2025-12-09': [
-          { category: 'Littérature', categoryIcon: '📚',
-            clues: ['Cet écrivain français a prononcé le discours "Misère" à l\'Assemblée en 1849 (nom de famille)', 'Il a créé les personnages Jean Valjean et Quasimodo', 'Auteur des Misérables et de Notre-Dame de Paris'],
-            answer: 'HUGO', points: [20, 10, 5], boxCount: 5 },
-          { category: 'Animaux', categoryIcon: '🦁',
-            clues: ['Ce félin vit en troupe matriarcale, contrairement aux autres grands félins solitaires', 'Le mâle possède une crinière qui s\'assombrit avec l\'âge', 'Surnommé le roi de la jungle'],
-            answer: 'LION', points: [20, 10, 5], boxCount: 5 },
-          { category: 'Astronomie', categoryIcon: '🌙',
-            clues: ['Ce satellite s\'éloigne de la Terre de 3,8 centimètres par an', 'Son cycle complet dure environ 29,5 jours', 'C\'est le seul satellite naturel de la Terre'],
-            answer: 'LUNE', points: [20, 10, 5], boxCount: 4 }
-        ]
-      };
+    const { useState, useEffect, useRef } = React;
 
-      const storage = {
-        get: async (key) => {
-          try {
-            const value = localStorage.getItem(key);
-            return value ? { key, value } : null;
-          } catch { return null; }
+    const storage = window.storage || {
+      get: async (key) => {
+        const value = localStorage.getItem(key);
+        return value ? { key, value, shared: false } : null;
+      },
+      set: async (key, value) => {
+        localStorage.setItem(key, value);
+        return { key, value, shared: false };
+      },
+      delete: async (key) => {
+        localStorage.removeItem(key);
+        return { key, deleted: true, shared: false };
+      },
+      list: async (prefix) => {
+        const keys = Object.keys(localStorage).filter(k => !prefix || k.startsWith(prefix));
+        return { keys, prefix, shared: false };
+      }
+    };
+
+    const DAILY_QUESTIONS = {
+      '2025-12-06': [
+        {
+          category: 'Arts et Culture',
+          categoryIcon: '🎭',
+          clues: [
+            'Cette célébration haute en couleur transforma le ballet classique au début du XXe siècle, révolutionnant la danse et la scénographie.',
+            'Diaghilev réunit à Paris les plus grands talents russes - Nijinski, Stravinsky, Bakst - créant un mouvement artistique majeur.',
+            'Cette compagnie mythique parisienne mêla danse, musique et arts visuels de 1909 à 1929, marquant profondément la culture occidentale.'
+          ],
+          answer: 'BALLETS',
+          boxCount: 8,
+          points: [10, 6, 3]
         },
-        set: async (key, value) => {
-          try {
-            localStorage.setItem(key, value);
-            return { key, value };
-          } catch { return null; }
+        {
+          category: 'Sciences et Santé',
+          categoryIcon: '🔬',
+          clues: [
+            'Dans le système visuel humain, cette structure nerveuse transmet l\'information de la rétine vers le cortex cérébral pour permettre la vision.',
+            'Ce faisceau de fibres nerveuses, présent chez tous les vertébrés, peut être endommagé par le glaucome, menaçant la vue.',
+            'Chaque œil humain possède ce nerf crânien reliant environ un million de cellules ganglionnaires au cerveau.'
+          ],
+          answer: 'OPTIQUE',
+          boxCount: 8,
+          points: [10, 6, 3]
+        },
+        {
+          category: 'Histoire et Géographie',
+          categoryIcon: '🌍',
+          clues: [
+            'Cette unité militaire d\'élite, créée en 1831 en Afrique du Nord, accueille les soldats de toutes nationalités désirant servir la France.',
+            'Basée à Aubagne depuis 1962, cette force d\'intervention célèbre pour sa rigueur et son Képi blanc compte environ 9000 hommes.',
+            'Son hymne "Le Boudin" et sa devise "Legio Patria Nostra" symbolisent cette troupe où l\'on peut tout effacer de son passé pour recommencer.'
+          ],
+          answer: 'LEGION',
+          boxCount: 8,
+          points: [10, 6, 3]
         }
-      };
+      ],
+      '2025-12-07': [
+        {
+          category: 'Sciences et Nature',
+          categoryIcon: '⚛️',
+          clues: [
+            'Ce métal précieux jaune brillant, symbole de richesse depuis l\'Antiquité, possède le numéro atomique 79.',
+            'Inaltérable et malléable, utilisé en joaillerie et comme réserve monétaire, sa rareté en fait l\'un des éléments les plus convoités.',
+            'Les banques centrales en conservent des réserves massives, et sa valeur sert souvent de refuge lors des crises économiques.'
+          ],
+          answer: 'OR',
+          boxCount: 8,
+          points: [10, 6, 3]
+        },
+        {
+          category: 'Société et Politique',
+          categoryIcon: '🏛️',
+          clues: [
+            'Cette forme d\'organisation politique centralisée exerce son autorité sur un territoire et une population définis.',
+            'Il détient le monopole de la violence légitime selon Max Weber et assure des fonctions régaliennes comme la justice et la défense.',
+            'Nation, gouvernement et administration publique composent cette entité souveraine reconnue par le droit international.'
+          ],
+          answer: 'ETAT',
+          boxCount: 8,
+          points: [10, 6, 3]
+        },
+        {
+          category: 'Histoire du Québec',
+          categoryIcon: '🍁',
+          clues: [
+            'En Nouvelle-France, ce système seigneurial structurait l\'occupation du territoire le long du Saint-Laurent dès le XVIIe siècle.',
+            'Chaque colon recevait une terre étroite et profonde, perpendiculaire au fleuve, facilitant l\'accès à l\'eau et aux voies de communication.',
+            'Ce mode de division cadastrale typiquement québécois créa un paysage agricole caractéristique encore visible aujourd\'hui.'
+          ],
+          answer: 'RANG',
+          boxCount: 8,
+          points: [10, 6, 3]
+        }
+      ],
+      '2025-12-08': [
+        {
+          category: 'Physique',
+          categoryIcon: '⚛️',
+          clues: [
+            'Cette particule subatomique sans charge électrique compose, avec les protons, le noyau des atomes et contribue à leur masse.',
+            'Découvert par James Chadwick en 1932, cet élément instable en isolation se désintègre en environ 15 minutes.',
+            'Sa capture ou sa libération dans les réactions nucléaires libère l\'énergie des centrales et des bombes atomiques.'
+          ],
+          answer: 'NEUTRON',
+          boxCount: 8,
+          points: [10, 6, 3]
+        },
+        {
+          category: 'Préhistoire',
+          categoryIcon: '🦣',
+          clues: [
+            'Cette période glaciaire majeure, durant environ 100 000 ans, prit fin il y a 11 700 ans avec le réchauffement holocène.',
+            'Les calottes polaires recouvraient alors de vastes territoires nordiques, abaissant le niveau des océans de plus de 100 mètres.',
+            'Les premiers humains traversèrent le détroit de Béring à pied sec durant cette ère, peuplant ainsi les Amériques.'
+          ],
+          answer: 'WURM',
+          boxCount: 8,
+          points: [10, 6, 3]
+        },
+        {
+          category: 'Géographie',
+          categoryIcon: '🗿',
+          clues: [
+            'Cet archipel volcanique isolé du Pacifique Sud, annexé par le Chili en 1888, fascine par ses vestiges archéologiques monumentaux.',
+            'Ses 887 statues géantes de pierre, les moaï, furent érigées entre 1250 et 1500 par la civilisation Rapa Nui.',
+            'Territoire le plus éloigné de toute terre habitée, cette île triangulaire de 164 km² intrigue scientifiques et voyageurs.'
+          ],
+          answer: 'PAQUES',
+          boxCount: 8,
+          points: [10, 6, 3]
+        }
+      ],
+      '2025-12-09': [
+        {
+          category: 'Arts Plastiques',
+          categoryIcon: '🎨',
+          clues: [
+            'Cette technique picturale médiévale applique des pigments sur un enduit mural frais, permettant leur intégration durable dans la paroi.',
+            'Michel-Ange maîtrisa cet art exigeant pour peindre la voûte de la Chapelle Sixtine entre 1508 et 1512.',
+            'Giotto, Fra Angelico et Rivera excellèrent dans cette peinture murale où les couleurs fusionnent chimiquement avec le plâtre.'
+          ],
+          answer: 'FRESQUE',
+          boxCount: 8,
+          points: [10, 6, 3]
+        },
+        {
+          category: 'Biologie',
+          categoryIcon: '🧬',
+          clues: [
+            'Cette structure protéique fibreuse assure résistance et élasticité aux tissus conjonctifs des mammifères et représente 30% de leurs protéines.',
+            'Synthétisée par les fibroblastes, elle compose principalement la peau, les tendons, les os et les cartilages.',
+            'L\'industrie cosmétique et pharmaceutique l\'utilise largement, notamment pour les crèmes anti-âge et les implants médicaux.'
+          ],
+          answer: 'COLLAGENE',
+          boxCount: 8,
+          points: [10, 6, 3]
+        },
+        {
+          category: 'Pays européens',
+          categoryIcon: '🌷',
+          clues: [
+            'Cet État membre fondateur de l\'Union européenne, bordant la mer du Nord, se distingue par ses polders gagnés sur l\'eau.',
+            'Amsterdam, sa capitale libérale réputée pour ses canaux, abrite le Rijksmuseum et la maison d\'Anne Frank.',
+            'Royaume constitutionnel de 17 millions d\'habitants, célèbre pour ses tulipes, moulins et maîtres flamands comme Rembrandt.'
+          ],
+          answer: 'PAYSBAS',
+          boxCount: 8,
+          points: [10, 6, 3]
+        }
+      ]
+    };
 
-      const getTodayString = () => {
-        const now = new Date();
-        const quebecTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/Montreal' }));
-        return quebecTime.toISOString().split('T')[0];
-      };
+    function DailyQuiz() {
+      const todayStr = new Date().toISOString().split('T')[0];
+      const [selectedDate, setSelectedDate] = useState(todayStr);
+      const [showCalendar, setShowCalendar] = useState(false);
+      const isToday = selectedDate === todayStr;
+      const clueRefs = useRef([]);
+
+      const dailyQuestions = DAILY_QUESTIONS[selectedDate] || [];
 
       const getPreviousDate = (dateStr) => {
         const date = new Date(dateStr + 'T00:00:00');
@@ -176,45 +331,54 @@
         return date.toISOString().split('T')[0];
       };
 
-      const todayStr = getTodayString();
-      const [selectedDate, setSelectedDate] = React.useState(todayStr);
-      const dailyQuestions = DAILY_QUESTIONS[selectedDate];
-      const isToday = selectedDate === todayStr;
-      
-      const hasPreviousDate = () => {
-        const prevDate = getPreviousDate(selectedDate);
-        return DAILY_QUESTIONS[prevDate] !== undefined;
+      const getNextDate = (dateStr) => {
+        const date = new Date(dateStr + 'T00:00:00');
+        date.setDate(date.getDate() + 1);
+        return date.toISOString().split('T')[0];
       };
 
-      const clueRefs = React.useRef([]);
-      
-      if (!dailyQuestions) {
+      const hasPreviousDate = () => {
+        return !!DAILY_QUESTIONS[getPreviousDate(selectedDate)];
+      };
+
+      const hasNextDate = () => {
+        const nextDate = getNextDate(selectedDate);
+        return !!DAILY_QUESTIONS[nextDate] && nextDate <= todayStr;
+      };
+
+      const formatDateForCalendar = (dateStr) => {
+        const [year, month, day] = dateStr.split('-');
+        return `${day}/${month}/${year.slice(2)}`;
+      };
+
+      if (dailyQuestions.length === 0) {
         return (
-          <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 flex items-center justify-center p-4">
-            <div className="text-center">
-              <p className="text-xl text-amber-800 font-bold">
-                Pas de quiz disponible pour cette date
-              </p>
+          <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 p-4 flex items-center justify-center">
+            <div className="max-w-2xl mx-auto text-center">
+              <div className="bg-white rounded-2xl shadow-xl p-6">
+                <p className="text-2xl font-black text-amber-900 mb-4">📅 Aucun quiz disponible</p>
+                <p className="text-gray-600">Revenez plus tard pour de nouvelles questions!</p>
+              </div>
             </div>
           </div>
         );
       }
 
-      const [currentQuestionIndex, setCurrentQuestionIndex] = React.useState(0);
-      const [totalScore, setTotalScore] = React.useState(0);
-      const [showScoreAnimation, setShowScoreAnimation] = React.useState(false);
+      const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+      const [totalScore, setTotalScore] = useState(0);
+      const [showScoreAnimation, setShowScoreAnimation] = useState(false);
       const question = dailyQuestions[currentQuestionIndex];
       
-      const [userAnswer, setUserAnswer] = React.useState(Array(question.boxCount).fill(''));
-      const [currentClue, setCurrentClue] = React.useState(0);
-      const [isComplete, setIsComplete] = React.useState(false);
-      const [questionScore, setQuestionScore] = React.useState(0);
-      const [wrongAnswers, setWrongAnswers] = React.useState([]);
-      const [showError, setShowError] = React.useState(false);
-      const [errorMessage, setErrorMessage] = React.useState('');
-      const inputRefs = React.useRef([]);
+      const [userAnswer, setUserAnswer] = useState(Array(8).fill(''));
+      const [currentClue, setCurrentClue] = useState(0);
+      const [isComplete, setIsComplete] = useState(false);
+      const [questionScore, setQuestionScore] = useState(0);
+      const [wrongAnswers, setWrongAnswers] = useState([]);
+      const [showError, setShowError] = useState(false);
+      const [errorMessage, setErrorMessage] = useState('');
+      const inputRefs = useRef([]);
 
-      React.useEffect(() => {
+      useEffect(() => {
         const loadProgress = async () => {
           try {
             const totalScoreData = await storage.get(`quiz-total-${todayStr}`);
@@ -235,26 +399,33 @@
         loadProgress();
       }, [todayStr, isToday]);
 
-      React.useEffect(() => {
+      useEffect(() => {
         const loadQuestionProgress = async () => {
           try {
             const savedData = await storage.get(`quiz-${selectedDate}-${currentQuestionIndex}`);
             if (savedData && savedData.value) {
               const data = JSON.parse(savedData.value);
-              setUserAnswer(data.userAnswer || Array(question.boxCount).fill(''));
+              setUserAnswer(data.userAnswer || Array(8).fill(''));
               setCurrentClue(data.currentClue || 0);
               setIsComplete(data.isComplete || false);
               setQuestionScore(data.questionScore || 0);
               setWrongAnswers(data.wrongAnswers || []);
             } else {
-              setUserAnswer(Array(question.boxCount).fill(''));
+              setUserAnswer(Array(8).fill(''));
               setCurrentClue(0);
               setIsComplete(false);
               setQuestionScore(0);
               setWrongAnswers([]);
             }
+            
+            // Focus sur la première case après un court délai
+            setTimeout(() => {
+              if (!isComplete && inputRefs.current[0]) {
+                inputRefs.current[0].focus();
+              }
+            }, 100);
           } catch (error) {
-            setUserAnswer(Array(question.boxCount).fill(''));
+            setUserAnswer(Array(8).fill(''));
             setCurrentClue(0);
             setIsComplete(false);
             setQuestionScore(0);
@@ -264,11 +435,11 @@
         loadQuestionProgress();
       }, [currentQuestionIndex, selectedDate]);
 
-      React.useEffect(() => {
+      useEffect(() => {
         setCurrentQuestionIndex(0);
       }, [selectedDate]);
 
-      React.useEffect(() => {
+      useEffect(() => {
         if (clueRefs.current[currentClue] && window.innerWidth <= 640) {
           setTimeout(() => {
             clueRefs.current[currentClue]?.scrollIntoView({ 
@@ -298,7 +469,7 @@
         }
       };
 
-      React.useEffect(() => {
+      useEffect(() => {
         saveProgress();
       }, [userAnswer, currentClue, isComplete, questionScore, totalScore, wrongAnswers, currentQuestionIndex]);
 
@@ -319,31 +490,47 @@
           }, 150);
         }
 
-        if (letter && index < question.boxCount - 1) {
+        if (letter && index < 7) {
           setTimeout(() => {
             inputRefs.current[index + 1]?.focus();
-          }, 100);
+          }, 50);
         }
       };
 
       const handleKeyDown = (index, e) => {
+        if (isComplete) return;
+
         if (e.key === 'Enter') {
           e.preventDefault();
           checkAnswer();
         } else if (e.key === 'Backspace' && !userAnswer[index] && index > 0) {
           setTimeout(() => {
             inputRefs.current[index - 1]?.focus();
-          }, 100);
+          }, 50);
+        } else if (e.key === 'Tab') {
+          e.preventDefault();
+          inputRefs.current[0]?.focus();
+        } else if (e.key === 'ArrowLeft' && index > 0) {
+          inputRefs.current[index - 1]?.focus();
+        } else if (e.key === 'ArrowRight' && index < 7) {
+          inputRefs.current[index + 1]?.focus();
         }
       };
 
       const checkAnswer = () => {
         const answer = userAnswer.join('').trim();
         
+        if (answer.length === 0) {
+          setErrorMessage('Veuillez entrer une réponse');
+          setShowError(true);
+          setTimeout(() => setShowError(false), 3000);
+          return;
+        }
+        
         if (wrongAnswers.includes(answer)) {
           setErrorMessage('Vous avez déjà essayé cette réponse !');
           setShowError(true);
-          setUserAnswer(Array(question.boxCount).fill(''));
+          setUserAnswer(Array(8).fill(''));
           inputRefs.current[0]?.focus();
           setTimeout(() => {
             setShowError(false);
@@ -364,7 +551,7 @@
           setIsComplete(true);
         } else if (!correct && currentClue < question.clues.length - 1) {
           setWrongAnswers(prev => [...prev, answer]);
-          setUserAnswer(Array(question.boxCount).fill(''));
+          setUserAnswer(Array(8).fill(''));
           nextClue();
           setTimeout(() => {
             inputRefs.current[0]?.focus();
@@ -385,15 +572,12 @@
         setCurrentQuestionIndex(index);
       };
 
-      const goToPreviousDay = () => {
-        const prevDate = getPreviousDate(selectedDate);
-        if (DAILY_QUESTIONS[prevDate]) {
-          setSelectedDate(prevDate);
+      const navigateDate = (direction) => {
+        const newDate = direction === -1 ? getPreviousDate(selectedDate) : getNextDate(selectedDate);
+        if (DAILY_QUESTIONS[newDate] && (direction === -1 || newDate <= todayStr)) {
+          setSelectedDate(newDate);
+          setShowCalendar(false);
         }
-      };
-
-      const goToToday = () => {
-        setSelectedDate(todayStr);
       };
 
       const goToNextQuestion = () => {
@@ -401,6 +585,31 @@
           setCurrentQuestionIndex(prev => prev + 1);
         }
       };
+
+      const calculateRatio = () => {
+        let earnedPoints = 0;
+        let totalPossiblePoints = 0;
+
+        dailyQuestions.forEach((q, idx) => {
+          totalPossiblePoints += q.points[0];
+          
+          const key = `quiz-${selectedDate}-${idx}`;
+          const savedData = localStorage.getItem(key);
+          if (savedData) {
+            try {
+              const data = JSON.parse(savedData);
+              if (data.isComplete && data.questionScore) {
+                earnedPoints += data.questionScore;
+              }
+            } catch (e) {}
+          }
+        });
+
+        if (totalPossiblePoints === 0) return 0;
+        return Math.round((earnedPoints / totalPossiblePoints) * 100);
+      };
+
+      const ratio = calculateRatio();
 
       return (
         <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 p-4">
@@ -418,7 +627,7 @@
                 })}
               </p>
               {!isToday && (
-                <p className="text-amber-600 text-sm font-medium mt-2">
+                <p className="text-amber-600 text-sm font-semibold mt-2">
                   📚 Mode pratique - Les points ne comptent pas
                 </p>
               )}
@@ -426,38 +635,56 @@
 
             <div className="text-center mb-3">
               <p className="text-xs text-gray-600 font-semibold">
-                Points par indice : <span className="text-green-600">20</span> / <span className="text-amber-600">10</span> / <span className="text-gray-600">5</span>
+                Points par indice : <span className="text-green-600">10</span> / <span className="text-amber-600">6</span> / <span className="text-gray-600">3</span>
               </p>
             </div>
 
             <div className="text-center mb-4">
-              <div className="inline-block bg-gradient-to-r from-yellow-100 to-amber-100 px-6 py-3 rounded-2xl border-3 border-amber-400 shadow-lg">
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-100 to-amber-100 px-6 py-3 rounded-2xl border-3 border-amber-400 shadow-lg">
                 <span className={`text-2xl font-black text-amber-900 ${showScoreAnimation ? 'score-animation' : ''}`}>
-                  🏆 Score Total: {totalScore}
+                  🏆 Score: {totalScore}
                 </span>
+                {ratio > 0 && (
+                  <span className="text-base font-semibold text-purple-600 ml-2">
+                    {ratio}%
+                  </span>
+                )}
               </div>
             </div>
 
             <div className="flex justify-between items-center mb-4">
-              <div className="flex gap-2">
+              <div className="relative">
                 <button
-                  onClick={goToPreviousDay}
-                  disabled={!hasPreviousDate()}
-                  className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all shadow-md ${
-                    hasPreviousDate()
-                      ? 'bg-gradient-to-r from-gray-500 to-gray-600 text-white hover:from-gray-600 hover:to-gray-700 hover:scale-105'
-                      : 'bg-gray-100 text-gray-400 cursor-not-allowed opacity-50'
-                  }`}
+                  onClick={() => setShowCalendar(!showCalendar)}
+                  className="w-12 h-12 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white rounded-xl font-bold transition-all hover:scale-105 shadow-md flex items-center justify-center text-2xl"
                 >
-                  ← Précédent
+                  📅
                 </button>
-                {!isToday && (
-                  <button
-                    onClick={goToToday}
-                    className="px-4 py-2 rounded-lg font-semibold text-sm transition-all shadow-md bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:from-amber-600 hover:to-orange-600 hover:scale-105"
-                  >
-                    Aujourd'hui
-                  </button>
+                {showCalendar && (
+                  <div className="calendar-popup">
+                    <div className="flex items-center justify-between gap-3 mb-2">
+                      <button
+                        onClick={() => navigateDate(-1)}
+                        className="w-10 h-10 bg-gray-200 hover:bg-gray-300 rounded-lg flex items-center justify-center transition-all"
+                        disabled={!hasPreviousDate()}
+                      >
+                        ◀
+                      </button>
+                      <div className="text-center font-bold text-gray-800">
+                        {formatDateForCalendar(selectedDate)}
+                      </div>
+                      <button
+                        onClick={() => navigateDate(1)}
+                        className="w-10 h-10 bg-gray-200 hover:bg-gray-300 rounded-lg flex items-center justify-center transition-all"
+                        disabled={!hasNextDate()}
+                      >
+                        ▶
+                      </button>
+                    </div>
+                    <div className="text-xs text-gray-500 text-center mt-2">
+                      {isToday ? 'Aujourd\'hui' : 'Quiz du passé'}
+                    </div>
+                  </div>
                 )}
               </div>
               
@@ -477,7 +704,7 @@
                 ))}
               </div>
               
-              <div style={{width: '85px'}}></div>
+              <div style={{width: '48px'}}></div>
             </div>
 
             <div className="bg-white rounded-2xl shadow-xl p-6 border-4 border-amber-200 slide-up">
@@ -502,8 +729,10 @@
                     key={index}
                     ref={el => clueRefs.current[index] = el}
                     className={`p-3 rounded-xl transition-all border-2 ${
-                      index <= currentClue
+                      index <= currentClue && !isComplete
                         ? 'bg-gradient-to-r from-amber-50 to-orange-50 border-amber-300'
+                        : index <= currentClue && isComplete
+                        ? 'bg-gray-50 border-gray-200 opacity-40'
                         : 'bg-gray-50 border-gray-200 opacity-50'
                     }`}
                   >
@@ -521,7 +750,7 @@
 
               <div className="mb-5 p-3 bg-amber-50 border-2 border-amber-200 rounded-xl">
                 <p className="text-center text-amber-800 font-semibold text-sm">
-                  💡 Entrez votre réponse (le nombre de cases peut être exact ou légèrement supérieur)
+                  💡 Entrez votre réponse (maximum 8 lettres)
                 </p>
               </div>
 
@@ -533,23 +762,23 @@
                 </div>
               )}
 
-              <div className="flex flex-wrap gap-2 justify-center mb-5">
-                {userAnswer.map((letter, index) => (
+              <div className="flex gap-1 justify-center mb-5">
+                {Array(8).fill(0).map((_, index) => (
                   <input
                     key={index}
                     ref={el => inputRefs.current[index] = el}
                     type="text"
                     maxLength="1"
-                    value={letter}
+                    value={userAnswer[index]}
                     onChange={(e) => handleInputChange(index, e.target.value)}
                     onKeyDown={(e) => handleKeyDown(index, e)}
                     disabled={isComplete}
-                    className={`w-14 h-14 text-center text-2xl font-bold uppercase rounded-lg border-3 transition-all duration-150
-                      ${isComplete && letter === question.answer[index]
-                        ? 'bg-green-100 border-green-500 text-green-800'
-                        : isComplete
-                        ? 'bg-red-100 border-red-500 text-red-800'
-                        : 'bg-white border-amber-300 text-amber-900'
+                    className={`w-11 h-11 text-center text-2xl font-black uppercase rounded-md transition-all duration-150 border
+                      ${isComplete && index < question.answer.length && userAnswer[index] === question.answer[index]
+                        ? 'bg-green-100 border-green-500 text-green-800 border-2'
+                        : isComplete && index < question.answer.length && userAnswer[index] && userAnswer[index] !== question.answer[index]
+                        ? 'bg-red-100 border-red-500 text-red-800 border-2'
+                        : 'bg-white border-gray-300 text-amber-900'
                       } ${isComplete ? 'cursor-not-allowed' : 'hover:border-orange-400'}`}
                   />
                 ))}
@@ -568,7 +797,7 @@
                       onClick={nextClue}
                       className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl font-bold text-base hover:from-blue-600 hover:to-indigo-600 transition-all hover:scale-105 shadow-lg"
                     >
-                      Afficher l'indice suivant
+                      Passer et voir l'indice suivant
                     </button>
                   )}
                 </div>
@@ -591,7 +820,7 @@
                         {question.answer}
                       </p>
                     )}
-                    {userAnswer.join('').trim() === question.answer && (
+                    {userAnswer.join('').trim() === question.answer && isToday && (
                       <p className="text-lg font-bold text-amber-800 mt-3">
                         Points gagnés: +{question.points[currentClue]}
                       </p>

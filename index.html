@@ -162,7 +162,7 @@
     };
 
     const DAILY_QUESTIONS = {
-      '2025-12-08': [
+      '2025-12-06': [
         {
           category: 'Arts et Culture',
           categoryIcon: '🎭',
@@ -200,7 +200,7 @@
           points: [10, 6, 3]
         }
       ],
-      '2025-12-09': [
+      '2025-12-07': [
         {
           category: 'Sciences et Nature',
           categoryIcon: '⚛️',
@@ -238,7 +238,7 @@
           points: [10, 6, 3]
         }
       ],
-      '2025-12-10': [
+      '2025-12-08': [
         {
           category: 'Physique',
           categoryIcon: '⚛️',
@@ -276,7 +276,7 @@
           points: [10, 6, 3]
         }
       ],
-      '2025-12-11': [
+      '2025-12-09': [
         {
           category: 'Arts Plastiques',
           categoryIcon: '🎨',
@@ -317,7 +317,16 @@
     };
 
     function DailyQuiz() {
-      const todayStr = new Date().toLocaleString('en-US', { timeZone: 'America/Montreal' }).split(',')[0].split('/').reverse().join('-').replace(/(\d{4})-(\d{1,2})-(\d{1,2})/, (m, y, m2, d) => `${y}-${m2.padStart(2, '0')}-${d.padStart(2, '0')}`);
+      const getTodayStr = () => {
+        const now = new Date();
+        const montrealTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/Montreal' }));
+        const year = montrealTime.getFullYear();
+        const month = String(montrealTime.getMonth() + 1).padStart(2, '0');
+        const day = String(montrealTime.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+      };
+      
+      const todayStr = getTodayStr();
       const [selectedDate, setSelectedDate] = useState(todayStr);
       const [showCalendar, setShowCalendar] = useState(false);
       const isToday = selectedDate === todayStr;
@@ -882,4 +891,3 @@
   </script>
 </body>
 </html>
-

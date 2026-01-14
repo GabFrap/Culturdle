@@ -154,7 +154,7 @@
   <script type="text/babel">
     const { useState, useEffect, useRef } = React;
 
-    const storage = window.storage || {
+    const storage = {
       get: async (key) => {
         const value = localStorage.getItem(key);
         return value ? { key, value, shared: false } : null;
@@ -162,14 +162,6 @@
       set: async (key, value) => {
         localStorage.setItem(key, value);
         return { key, value, shared: false };
-      },
-      delete: async (key) => {
-        localStorage.removeItem(key);
-        return { key, deleted: true, shared: false };
-      },
-      list: async (prefix) => {
-        const keys = Object.keys(localStorage).filter(k => !prefix || k.startsWith(prefix));
-        return { keys, prefix, shared: false };
       }
     };
 
@@ -184,54 +176,48 @@
       };
       
       const todayStr = getTodayStr();
+      
+      // TOUS LES HOOKS DOIVENT ÊTRE DÉCLARÉS AVANT TOUT RETURN
       const [selectedDate, setSelectedDate] = useState(todayStr);
       const [showCalendar, setShowCalendar] = useState(false);
       const [allQuestions, setAllQuestions] = useState({});
       const [loading, setLoading] = useState(true);
-      const isToday = selectedDate === todayStr;
+      const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+      const [totalScore, setTotalScore] = useState(0);
+      const [showScoreAnimation, setShowScoreAnimation] = useState(false);
+      const [answeredCount, setAnsweredCount] = useState(0);
+      const [ratio, setRatio] = useState(0);
+      const [userAnswer, setUserAnswer] = useState(Array(8).fill(''));
+      const [currentClue, setCurrentClue] = useState(0);
+      const [isComplete, setIsComplete] = useState(false);
+      const [questionScore, setQuestionScore] = useState(0);
+      const [wrongAnswers, setWrongAnswers] = useState([]);
+      const [showError, setShowError] = useState(false);
+      const [errorMessage, setErrorMessage] = useState('');
+      
       const clueRefs = useRef([]);
+      const inputRefs = useRef([]);
+      
+      const isToday = selectedDate === todayStr;
+      const dailyQuestions = allQuestions[selectedDate] || [];
+      const question = dailyQuestions[currentQuestionIndex];
 
       // Load questions from JSON file
       useEffect(() => {
         fetch('questions.json')
-          .then(res => res.json())
+          .then(res => {
+            if (!res.ok) throw new Error('Impossible de charger les questions');
+            return res.json();
+          })
           .then(data => {
             setAllQuestions(data);
             setLoading(false);
           })
           .catch(err => {
-            console.error('Error loading questions:', err);
+            console.error('Erreur chargement questions:', err);
             setLoading(false);
           });
       }, []);
-
-      const dailyQuestions = allQuestions[selectedDate] || [];
-
-      const getPreviousDate = (dateStr) => {
-        const date = new Date(dateStr + 'T00:00:00');
-        date.setDate(date.getDate() - 1);
-        return date.toISOString().split('T')[0];
-      };
-
-      const getNextDate = (dateStr) => {
-        const date = new Date(dateStr + 'T00:00:00');
-        date.setDate(date.getDate() + 1);
-        return date.toISOString().split('T')[0];
-      };
-
-      const hasPreviousDate = () => {
-        return !!allQuestions[getPreviousDate(selectedDate)];
-      };
-
-      const hasNextDate = () => {
-        const nextDate = getNextDate(selectedDate);
-        return !!allQuestions[nextDate] && nextDate <= todayStr;
-      };
-
-      const formatDateForCalendar = (dateStr) => {
-        const [year, month, day] = dateStr.split('-');
-        return `${day}/${month}/${year.slice(2)}`;
-      };
 
       useEffect(() => {
         window.scrollTo(0, 0);
@@ -245,43 +231,6 @@
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
       }, [showCalendar]);
-
-      if (loading) {
-        return (
-          <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 p-4 flex items-center justify-center">
-            <div className="text-2xl font-bold text-amber-900">Chargement...</div>
-          </div>
-        );
-      }
-
-      if (dailyQuestions.length === 0) {
-        return (
-          <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 p-4 flex items-center justify-center">
-            <div className="max-w-2xl mx-auto text-center">
-              <div className="bg-white rounded-2xl shadow-xl p-6">
-                <p className="text-2xl font-black text-amber-900 mb-4">📅 Aucun quiz disponible</p>
-                <p className="text-gray-600">Revenez plus tard pour de nouvelles questions!</p>
-              </div>
-            </div>
-          </div>
-        );
-      }
-
-      const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-      const [totalScore, setTotalScore] = useState(0);
-      const [showScoreAnimation, setShowScoreAnimation] = useState(false);
-      const [answeredCount, setAnsweredCount] = useState(0);
-      const [ratio, setRatio] = useState(0);
-      const question = dailyQuestions[currentQuestionIndex];
-      
-      const [userAnswer, setUserAnswer] = useState(Array(8).fill(''));
-      const [currentClue, setCurrentClue] = useState(0);
-      const [isComplete, setIsComplete] = useState(false);
-      const [questionScore, setQuestionScore] = useState(0);
-      const [wrongAnswers, setWrongAnswers] = useState([]);
-      const [showError, setShowError] = useState(false);
-      const [errorMessage, setErrorMessage] = useState('');
-      const inputRefs = useRef([]);
 
       useEffect(() => {
         const loadProgress = async () => {
@@ -310,6 +259,8 @@
       }, [todayStr, isToday]);
 
       useEffect(() => {
+        if (!question) return;
+        
         const loadQuestionProgress = async () => {
           try {
             const savedData = await storage.get(`quiz-${selectedDate}-${currentQuestionIndex}`);
@@ -342,7 +293,7 @@
             
             setTimeout(() => {
               const firstAvailableIndex = getFirstAvailableInputIndex();
-              if (!isComplete && inputRefs.current[firstAvailableIndex]) {
+              if (!data?.isComplete && inputRefs.current[firstAvailableIndex]) {
                 inputRefs.current[firstAvailableIndex].focus();
               }
             }, 100);
@@ -355,13 +306,38 @@
           }
         };
         loadQuestionProgress();
-      }, [currentQuestionIndex, selectedDate]);
+      }, [currentQuestionIndex, selectedDate, question]);
 
       useEffect(() => {
         setCurrentQuestionIndex(0);
       }, [selectedDate]);
 
+      useEffect(() => {
+        if (!question) return;
+        
+        const saveProgress = async () => {
+          try {
+            await storage.set(`quiz-${selectedDate}-${currentQuestionIndex}`, JSON.stringify({
+              userAnswer,
+              currentClue,
+              isComplete,
+              questionScore,
+              wrongAnswers
+            }));
+            
+            if (isToday) {
+              await storage.set(`quiz-total-${todayStr}`, JSON.stringify(totalScore));
+              await storage.set(`quiz-current-index-${todayStr}`, JSON.stringify(currentQuestionIndex));
+            }
+          } catch (error) {
+            console.error('Failed to save progress');
+          }
+        };
+        saveProgress();
+      }, [userAnswer, currentClue, isComplete, questionScore, totalScore, wrongAnswers, currentQuestionIndex, selectedDate, isToday, todayStr, question]);
+
       const getFirstAvailableInputIndex = () => {
+        if (!question) return 0;
         for (let i = 0; i < 8; i++) {
           const isRevealed = currentClue >= 2 && question.revealedLetters && question.revealedLetters[2] && question.revealedLetters[2].includes(i);
           const isCrossed = currentClue >= 2 && i >= question.answer.length;
@@ -398,31 +374,8 @@
         }
       };
 
-      const saveProgress = async () => {
-        try {
-          await storage.set(`quiz-${selectedDate}-${currentQuestionIndex}`, JSON.stringify({
-            userAnswer,
-            currentClue,
-            isComplete,
-            questionScore,
-            wrongAnswers
-          }));
-          
-          if (isToday) {
-            await storage.set(`quiz-total-${todayStr}`, JSON.stringify(totalScore));
-            await storage.set(`quiz-current-index-${todayStr}`, JSON.stringify(currentQuestionIndex));
-          }
-        } catch (error) {
-          console.error('Failed to save progress');
-        }
-      };
-
-      useEffect(() => {
-        saveProgress();
-      }, [userAnswer, currentClue, isComplete, questionScore, totalScore, wrongAnswers, currentQuestionIndex]);
-
       const handleInputChange = (index, value) => {
-        if (isComplete) return;
+        if (isComplete || !question) return;
         
         if (currentClue >= 2 && index >= question.answer.length) return;
         
@@ -460,7 +413,7 @@
       };
 
       const handleKeyDown = (index, e) => {
-        if (isComplete) return;
+        if (isComplete || !question) return;
 
         if (e.key === 'Enter') {
           e.preventDefault();
@@ -517,6 +470,8 @@
       };
 
       const checkAnswer = () => {
+        if (!question) return;
+        
         const answer = userAnswer.join('').trim();
         
         if (answer.length === 0) {
@@ -579,7 +534,7 @@
             setUserAnswer(Array(8).fill(''));
           }
           
-          nextClue();
+          setCurrentClue(newClueIndex);
           setTimeout(() => {
             const firstIndex = getFirstAvailableInputIndex();
             inputRefs.current[firstIndex]?.focus();
@@ -592,18 +547,14 @@
         }
       };
 
-      const nextClue = () => {
-        if (currentClue < question.clues.length - 1) {
-          setCurrentClue(prev => prev + 1);
-        }
-      };
-
       const changeQuestion = (index) => {
         setCurrentQuestionIndex(index);
       };
 
       const navigateDate = (direction) => {
-        const newDate = direction === -1 ? getPreviousDate(selectedDate) : getNextDate(selectedDate);
+        const date = new Date(selectedDate + 'T00:00:00');
+        date.setDate(date.getDate() + direction);
+        const newDate = date.toISOString().split('T')[0];
         if (allQuestions[newDate] && (direction === -1 || newDate <= todayStr)) {
           setSelectedDate(newDate);
         }
@@ -621,6 +572,54 @@
         }
         return count.toString();
       };
+
+      const formatDateForCalendar = (dateStr) => {
+        const [year, month, day] = dateStr.split('-');
+        return `${day}/${month}/${year.slice(2)}`;
+      };
+
+      const getPreviousDate = (dateStr) => {
+        const date = new Date(dateStr + 'T00:00:00');
+        date.setDate(date.getDate() - 1);
+        return date.toISOString().split('T')[0];
+      };
+
+      const getNextDate = (dateStr) => {
+        const date = new Date(dateStr + 'T00:00:00');
+        date.setDate(date.getDate() + 1);
+        return date.toISOString().split('T')[0];
+      };
+
+      const hasPreviousDate = () => {
+        return !!allQuestions[getPreviousDate(selectedDate)];
+      };
+
+      const hasNextDate = () => {
+        const nextDate = getNextDate(selectedDate);
+        return !!allQuestions[nextDate] && nextDate <= todayStr;
+      };
+
+      // MAINTENANT ON PEUT FAIRE LES RETURNS
+      if (loading) {
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 p-4 flex items-center justify-center">
+            <div className="text-2xl font-bold text-amber-900">Chargement...</div>
+          </div>
+        );
+      }
+
+      if (dailyQuestions.length === 0 || !question) {
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 p-4 flex items-center justify-center">
+            <div className="max-w-2xl mx-auto text-center">
+              <div className="bg-white rounded-2xl shadow-xl p-6">
+                <p className="text-2xl font-black text-amber-900 mb-4">📅 Aucun quiz disponible</p>
+                <p className="text-gray-600">Revenez plus tard pour de nouvelles questions!</p>
+              </div>
+            </div>
+          </div>
+        );
+      }
 
       return (
         <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 p-4">
@@ -830,7 +829,7 @@
                   </button>
                   {currentClue < question.clues.length - 1 && (
                     <button
-                      onClick={nextClue}
+                      onClick={() => setCurrentClue(currentClue + 1)}
                       className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl font-bold text-base hover:from-blue-600 hover:to-indigo-600 transition-all hover:scale-105 shadow-lg"
                     >
                       Passer et voir l'indice suivant

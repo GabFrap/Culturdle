@@ -1,14 +1,14 @@
 {
-  "2026-01-12": [
+  "2026-01-14": [
     {
       "category": "Arts et Culture",
       "categoryIcon": "🎭",
       "clues": [
-        "Cette célébration haute en couleur transforma le ballet classique au début du XXe siècle, révolutionnant la danse et la scénographie.",
-        "Diaghilev créa cette troupe mythique à Paris, réunissant Nijinski, Stravinsky et Bakst dans un mouvement artistique révolutionnaire.",
-        "Ces spectacles russes légendaires (1909-1929) combinaient danse, musique et arts visuels à Paris."
+        "Genre dramatique dont l'action est figurée par des pantomimes et des danses.",
+        "Son exécution précise demande une position adéquate, un alignement de la tête et des épaules à la verticale et beaucoup de souplesse.",
+        "Les danseurs portent généralement le tutu et exécutent des mouvements sur la pointe des pieds."
       ],
-      "answer": "BALLETS",
+      "answer": "BALLET",
       "boxCount": 8,
       "points": [10, 8, 4]
     },
@@ -43,7 +43,7 @@
       }
     }
   ],
-  "2026-01-13": [
+  "2026-01-15": [
     {
       "category": "Sciences et Nature",
       "categoryIcon": "⚛️",
@@ -90,7 +90,7 @@
       }
     }
   ],
-  "2026-01-14": [
+  "2026-01-16": [
     {
       "category": "Physique",
       "categoryIcon": "⚛️",

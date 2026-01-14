@@ -197,6 +197,8 @@
       
       const clueRefs = useRef([]);
       const inputRefs = useRef([]);
+      const nextQuestionBtnRef = useRef(null);
+      const scoreHeaderRef = useRef(null);
       
       const isToday = selectedDate === todayStr;
       const dailyQuestions = allQuestions[selectedDate] || [];
@@ -315,6 +317,20 @@
       useEffect(() => {
         if (!question) return;
         
+        // Scroll to new clue on mobile when it appears
+        if (window.innerWidth <= 640 && clueRefs.current[currentClue]) {
+          setTimeout(() => {
+            clueRefs.current[currentClue]?.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'center' 
+            });
+          }, 100);
+        }
+      }, [currentClue, question]);
+
+      useEffect(() => {
+        if (!question) return;
+        
         const saveProgress = async () => {
           try {
             await storage.set(`quiz-${selectedDate}-${currentQuestionIndex}`, JSON.stringify({
@@ -349,34 +365,38 @@
       };
 
       const calculateAndUpdateRatio = () => {
-        let earnedPoints = 0;
-        let totalPossiblePoints = 0;
-
-        dailyQuestions.forEach((q, idx) => {
-          totalPossiblePoints += q.points[0];
-          
-          const key = `quiz-${selectedDate}-${idx}`;
-          const savedData = localStorage.getItem(key);
-          if (savedData) {
+        // Calculate ratio based on ALL answered questions from answeredCount
+        // Not just today's date - this is the global success rate
+        let totalEarnedPoints = 0;
+        let totalPossibleFromAnswered = 0;
+        
+        // We need to iterate through all saved questions to calculate actual ratio
+        const allKeys = Object.keys(localStorage).filter(k => k.startsWith('quiz-'));
+        
+        allKeys.forEach(key => {
+          if (key.startsWith('quiz-') && key.includes('-') && !key.includes('total') && !key.includes('current-index')) {
             try {
-              const data = JSON.parse(savedData);
-              if (data.isComplete && data.questionScore) {
-                earnedPoints += data.questionScore;
+              const data = JSON.parse(localStorage.getItem(key));
+              if (data && data.isComplete && data.questionScore) {
+                totalEarnedPoints += data.questionScore;
+                // Assume max points per question is 10 (first clue)
+                totalPossibleFromAnswered += 10;
               }
             } catch (e) {}
           }
         });
 
-        if (totalPossiblePoints === 0) {
+        if (totalPossibleFromAnswered === 0) {
           setRatio(0);
         } else {
-          setRatio(Math.round((earnedPoints / totalPossiblePoints) * 100));
+          setRatio(Math.round((totalEarnedPoints / totalPossibleFromAnswered) * 100));
         }
       };
 
       const handleInputChange = (index, value) => {
         if (isComplete || !question) return;
         
+        // Only restrict to answer length on clue 3 (index 2)
         if (currentClue >= 2 && index >= question.answer.length) return;
         
         if (currentClue >= 2 && question.revealedLetters && question.revealedLetters[2] && question.revealedLetters[2].includes(index)) return;
@@ -413,7 +433,18 @@
       };
 
       const handleKeyDown = (index, e) => {
-        if (isComplete || !question) return;
+        if (!question) return;
+        
+        // If complete and user presses Enter, go to next question
+        if (isComplete && e.key === 'Enter') {
+          e.preventDefault();
+          if (currentQuestionIndex < dailyQuestions.length - 1) {
+            goToNextQuestion();
+          }
+          return;
+        }
+        
+        if (isComplete) return;
 
         if (e.key === 'Enter') {
           e.preventDefault();
@@ -517,7 +548,30 @@
           }
           setIsComplete(true);
           
-          setTimeout(() => calculateAndUpdateRatio(), 100);
+          setTimeout(() => {
+            calculateAndUpdateRatio();
+            
+            // Mobile scroll behavior
+            if (window.innerWidth <= 640) {
+              if (currentQuestionIndex === dailyQuestions.length - 1) {
+                // Last question - scroll to score
+                setTimeout(() => {
+                  scoreHeaderRef.current?.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                  });
+                }, 300);
+              } else {
+                // Not last question - scroll to next button
+                setTimeout(() => {
+                  nextQuestionBtnRef.current?.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                  });
+                }, 300);
+              }
+            }
+          }, 100);
         } else if (!correct && currentClue < question.clues.length - 1) {
           setWrongAnswers(prev => [...prev, answer]);
           
@@ -543,7 +597,28 @@
           setWrongAnswers(prev => [...prev, answer]);
           setIsComplete(true);
           
-          setTimeout(() => calculateAndUpdateRatio(), 100);
+          setTimeout(() => {
+            calculateAndUpdateRatio();
+            
+            // Mobile scroll behavior for wrong answer
+            if (window.innerWidth <= 640) {
+              if (currentQuestionIndex === dailyQuestions.length - 1) {
+                setTimeout(() => {
+                  scoreHeaderRef.current?.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                  });
+                }, 300);
+              } else {
+                setTimeout(() => {
+                  nextQuestionBtnRef.current?.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                  });
+                }, 300);
+              }
+            }
+          }, 100);
         }
       };
 
@@ -649,7 +724,7 @@
               </p>
             </div>
 
-            <div className="text-center mb-4">
+            <div className="text-center mb-4" ref={scoreHeaderRef}>
               <div className="inline-flex items-center gap-3 bg-gradient-to-r from-yellow-100 to-amber-100 px-6 py-3 rounded-2xl border-3 border-amber-400 shadow-lg">
                 <span className={`text-2xl font-black text-amber-900 ${showScoreAnimation ? 'score-animation' : ''}`}>
                   🏆 Total: {totalScore}
@@ -864,6 +939,7 @@
                   
                   {currentQuestionIndex < dailyQuestions.length - 1 && (
                     <button
+                      ref={nextQuestionBtnRef}
                       onClick={goToNextQuestion}
                       className="mt-4 px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl font-bold text-base hover:from-green-600 hover:to-green-700 transition-all hover:scale-105 shadow-lg"
                     >

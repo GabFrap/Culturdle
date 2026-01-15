@@ -29,7 +29,7 @@
     .mr-2 { margin-right: 0.5rem; } .ml-2 { margin-left: 0.5rem; }
     .max-w-2xl { max-width: 42rem; } .mx-auto { margin-left: auto; margin-right: auto; }
     .text-center { text-align: center; }
-    .text-4xl { font-size: 2.25rem; line-height: 2.5rem; } .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+    .text-4xl { font-size: 2.25rem; line-height: 2.5rem; } .text-3xl { font-size: 1.875rem; line-height: 2.25rem; } .text-2xl { font-size: 1.5rem; line-height: 2rem; }
     .text-xl { font-size: 1.25rem; line-height: 1.75rem; } .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
     .text-base { font-size: 1rem; line-height: 1.5rem; } .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
     .text-xs { font-size: 0.75rem; line-height: 1rem; }
@@ -185,6 +185,7 @@
       const [loading, setLoading] = useState(true);
       const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
       const [totalScore, setTotalScore] = useState(0);
+      const [todayScore, setTodayScore] = useState(0);
       const [showScoreAnimation, setShowScoreAnimation] = useState(false);
       const [answeredCount, setAnsweredCount] = useState(0);
       const [ratio, setRatio] = useState(0);
@@ -238,10 +239,39 @@
       useEffect(() => {
         const loadProgress = async () => {
           try {
-            const totalScoreData = await storage.get(`quiz-total-${todayStr}`);
-            if (totalScoreData && totalScoreData.value) {
-              setTotalScore(JSON.parse(totalScoreData.value));
-            }
+            // Load all-time total score from localStorage
+            let allTimeTotal = 0;
+            const allKeys = Object.keys(localStorage);
+            
+            allKeys.forEach(key => {
+              if (key.startsWith('quiz-') && key.includes('-') && !key.includes('total') && !key.includes('current-index') && !key.includes('answered-count')) {
+                try {
+                  const data = JSON.parse(localStorage.getItem(key));
+                  if (data && data.isComplete && data.questionScore) {
+                    allTimeTotal += data.questionScore;
+                  }
+                } catch (e) {}
+              }
+            });
+            
+            setTotalScore(allTimeTotal);
+            
+            // Load today's score separately
+            let todayTotal = 0;
+            dailyQuestions.forEach((q, idx) => {
+              const key = `quiz-${todayStr}-${idx}`;
+              const savedData = localStorage.getItem(key);
+              if (savedData) {
+                try {
+                  const data = JSON.parse(savedData);
+                  if (data.isComplete && data.questionScore) {
+                    todayTotal += data.questionScore;
+                  }
+                } catch (e) {}
+              }
+            });
+            
+            setTodayScore(todayTotal);
 
             const answeredCountData = await storage.get('quiz-answered-count');
             if (answeredCountData && answeredCountData.value) {
@@ -259,7 +289,7 @@
           }
         };
         loadProgress();
-      }, [todayStr, isToday]);
+      }, [todayStr, isToday, dailyQuestions]);
 
       useEffect(() => {
         if (!question) return;
@@ -269,18 +299,14 @@
             const savedData = await storage.get(`quiz-${selectedDate}-${currentQuestionIndex}`);
             if (savedData && savedData.value) {
               const data = JSON.parse(savedData.value);
-              const answerArray = data.userAnswer || Array(8).fill('');
+              let answerArray = data.userAnswer || Array(8).fill('');
               
-              if (data.currentClue >= 2 && question.revealedLetters && question.revealedLetters[2]) {
-                question.revealedLetters[2].forEach(index => {
-                  if (index < question.answer.length) {
-                    answerArray[index] = question.answer[index];
-                  }
-                });
-              }
+              // Only apply revealed letters if we're currently on clue 3 (index 2)
+              // This prevents them from showing up when loading a saved game
+              const savedClue = data.currentClue || 0;
               
               setUserAnswer(answerArray);
-              setCurrentClue(data.currentClue || 0);
+              setCurrentClue(savedClue);
               setIsComplete(data.isComplete || false);
               setQuestionScore(data.questionScore || 0);
               setWrongAnswers(data.wrongAnswers || []);
@@ -296,7 +322,7 @@
             
             // Focus on first available input - CRITICAL
             setTimeout(() => {
-              if (!data?.isComplete) {
+              if (!savedData?.value || !JSON.parse(savedData.value).isComplete) {
                 const firstAvailable = getFirstAvailableInputIndex();
                 if (inputRefs.current[firstAvailable]) {
                   inputRefs.current[firstAvailable].focus();
@@ -328,12 +354,12 @@
       useEffect(() => {
         if (!question) return;
         
-        // Scroll to new clue on mobile when it appears - make it prominent
-        if (window.innerWidth <= 640 && clueRefs.current[currentClue]) {
+        // Scroll to new clue on mobile when it appears - but NOT for clue 3
+        if (window.innerWidth <= 640 && currentClue < 2 && clueRefs.current[currentClue]) {
           setTimeout(() => {
             clueRefs.current[currentClue]?.scrollIntoView({ 
               behavior: 'smooth', 
-              block: 'start' // Changed from center to start for better visibility
+              block: 'start'
             });
           }, 200);
         }
@@ -363,7 +389,6 @@
             }));
             
             if (isToday) {
-              await storage.set(`quiz-total-${todayStr}`, JSON.stringify(totalScore));
               await storage.set(`quiz-current-index-${todayStr}`, JSON.stringify(currentQuestionIndex));
             }
           } catch (error) {
@@ -564,6 +589,7 @@
             storage.set('quiz-answered-count', JSON.stringify(newCount));
             
             setTotalScore(prev => prev + points);
+            setTodayScore(prev => prev + points);
             setShowScoreAnimation(true);
             setTimeout(() => setShowScoreAnimation(false), 600);
           }
@@ -595,15 +621,18 @@
           setWrongAnswers(prev => [...prev, answer]);
           
           const newClueIndex = currentClue + 1;
+          
+          // Apply revealed letters ONLY when moving TO clue 3 (index 2)
           if (newClueIndex === 2 && question.revealedLetters && question.revealedLetters[2]) {
-            const newAnswer = Array(8).fill('');
+            const newAnswer = [...userAnswer]; // Keep existing letters
             question.revealedLetters[2].forEach(index => {
               if (index < question.answer.length) {
                 newAnswer[index] = question.answer[index];
               }
             });
             setUserAnswer(newAnswer);
-          } else {
+          } else if (newClueIndex !== 2) {
+            // Only clear if NOT going to clue 3
             setUserAnswer(Array(8).fill(''));
           }
           
@@ -742,22 +771,34 @@
             </div>
 
             <div className="text-center mb-4" ref={scoreHeaderRef}>
-              <div className="inline-flex items-center gap-3 bg-gradient-to-r from-yellow-100 to-amber-100 px-6 py-3 rounded-2xl border-3 border-amber-400 shadow-lg">
-                <span className={`text-2xl font-black text-amber-900 ${showScoreAnimation ? 'score-animation' : ''}`}>
-                  🏆 Total: {totalScore}
-                </span>
-                <div className="flex flex-col items-center">
-                  {ratio > 0 && (
-                    <span className="text-base font-semibold text-purple-600">
-                      {ratio}%
-                    </span>
-                  )}
-                  {answeredCount > 0 && (
-                    <span className="text-xs text-gray-500 font-semibold">
-                      {formatAnsweredCount(answeredCount)}
-                    </span>
-                  )}
+              <div className="flex gap-3 justify-center items-stretch flex-wrap">
+                {/* Total Score */}
+                <div className="inline-flex items-center gap-3 bg-gradient-to-r from-yellow-100 to-amber-100 px-6 py-3 rounded-2xl border-3 border-amber-400 shadow-lg">
+                  <span className={`text-2xl font-black text-amber-900 ${showScoreAnimation ? 'score-animation' : ''}`}>
+                    🏆 Total: {totalScore}
+                  </span>
+                  <div className="flex flex-col items-center">
+                    {ratio > 0 && (
+                      <span className="text-base font-semibold text-purple-600">
+                        {ratio}%
+                      </span>
+                    )}
+                    {answeredCount > 0 && (
+                      <span className="text-xs text-gray-500 font-semibold">
+                        {formatAnsweredCount(answeredCount)}
+                      </span>
+                    )}
+                  </div>
                 </div>
+                
+                {/* Today's Points */}
+                {isToday && todayScore > 0 && (
+                  <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-50 to-emerald-50 px-5 py-3 rounded-2xl border-3 border-green-400 shadow-lg">
+                    <span className="text-lg font-black text-green-800">
+                      ⭐ Aujourd'hui: {todayScore}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
 

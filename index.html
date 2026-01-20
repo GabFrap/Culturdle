@@ -39,8 +39,10 @@
     .text-amber-600 { color: #d97706; } .text-gray-800 { color: #1f2937; } .text-gray-600 { color: #4b5563; }
     .text-gray-500 { color: #6b7280; } .text-gray-400 { color: #9ca3af; } .text-gray-300 { color: #d1d5db; }
     .text-white { color: #ffffff; }
-    .text-green-800 { color: #166534; } .text-green-600 { color: #16a34a; } .text-red-800 { color: #991b1b; }
-    .text-purple-600 { color: #9333ea; }
+    .text-green-800 { color: #166534; } .text-green-600 { color: #16a34a; } .text-green-900 { color: #14532d; }
+    .text-red-800 { color: #991b1b; }
+    .text-purple-600 { color: #9333ea; } .text-purple-900 { color: #581c87; }
+    .text-blue-900 { color: #1e3a8a; } .text-orange-900 { color: #7c2d12; }
     .bg-white { background-color: #ffffff; } .bg-amber-50 { background-color: #fffbeb; }
     .bg-amber-500 { background-color: #f59e0b; } .bg-gray-50 { background-color: #f9fafb; }
     .bg-gray-100 { background-color: #f3f4f6; } .bg-gray-200 { background-color: #e5e7eb; }
@@ -61,8 +63,15 @@
     .to-indigo-600 { --tw-gradient-to: #4f46e5; }
     .from-green-50 { --tw-gradient-from: #f0fdf4; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(240, 253, 244, 0)); }
     .to-emerald-50 { --tw-gradient-to: #ecfdf5; }
+    .from-green-100 { --tw-gradient-from: #dcfce7; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(220, 252, 231, 0)); }
+    .to-emerald-100 { --tw-gradient-to: #d1fae5; }
     .from-green-500 { --tw-gradient-from: #22c55e; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(34, 197, 94, 0)); }
     .to-green-600 { --tw-gradient-to: #16a34a; }
+    .from-orange-100 { --tw-gradient-from: #ffedd5; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 237, 213, 0)); }
+    .from-purple-100 { --tw-gradient-from: #f3e8ff; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(243, 232, 255, 0)); }
+    .to-pink-100 { --tw-gradient-to: #fce7f3; }
+    .from-blue-100 { --tw-gradient-from: #dbeafe; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(219, 234, 254, 0)); }
+    .to-indigo-100 { --tw-gradient-to: #e0e7ff; }
     .from-red-50 { --tw-gradient-from: #fef2f2; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(254, 242, 242, 0)); }
     .from-gray-500 { --tw-gradient-from: #6b7280; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(107, 114, 128, 0)); }
     .to-gray-600 { --tw-gradient-to: #4b5563; }
@@ -74,9 +83,11 @@
     .border-gray-200 { border-color: #e5e7eb; } .border-gray-300 { border-color: #d1d5db; }
     .border-green-400 { border-color: #4ade80; } .border-green-500 { border-color: #22c55e; }
     .border-red-400 { border-color: #f87171; } .border-red-500 { border-color: #ef4444; }
-    .rounded-xl { border-radius: 0.75rem; } .rounded-2xl { border-radius: 1rem; }
+    .border-purple-400 { border-color: #c084fc; } .border-blue-400 { border-color: #60a5fa; }
+    .rounded-xl { border-radius: 0.75rem; } .rounded-2xl { border-radius: 1rem; } .rounded-3xl { border-radius: 1.5rem; }
     .rounded-lg { border-radius: 0.5rem; } .rounded-md { border-radius: 0.375rem; } .rounded-full { border-radius: 9999px; }
     .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+    .shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
     .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
     .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
     .flex { display: flex; } .inline-block { display: inline-block; } .inline-flex { display: inline-flex; }
@@ -100,8 +111,15 @@
     .hover\:bg-gray-200:hover { background-color: #e5e7eb; } .hover\:bg-gray-300:hover { background-color: #d1d5db; }
     .opacity-50 { opacity: 0.5; } .opacity-40 { opacity: 0.4; } .opacity-30 { opacity: 0.3; }
     .cursor-not-allowed { cursor: not-allowed; } .cursor-pointer { cursor: pointer; }
-    .relative { position: relative; } .absolute { position: absolute; } .z-50 { z-index: 50; }
+    .relative { position: relative; } .absolute { position: absolute; } .fixed { position: fixed; }
+    .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+    .z-50 { z-index: 50; }
     .line-through { text-decoration: line-through; }
+    .bg-opacity-50 { background-color: rgba(0, 0, 0, 0.5); }
+    .max-h-screen { max-height: 100vh; }
+    .overflow-y-auto { overflow-y: auto; }
+    .space-y-3 > * + * { margin-top: 0.75rem; }
+    .min-w-\[140px\] { min-width: 140px; }
     button { cursor: pointer; border: none; outline: none; }
     input { outline: none; }
     input:focus { border-color: #f97316; box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.1); }
@@ -196,6 +214,14 @@
       const [wrongAnswers, setWrongAnswers] = useState([]);
       const [showError, setShowError] = useState(false);
       const [errorMessage, setErrorMessage] = useState('');
+      const [showStatsModal, setShowStatsModal] = useState(false);
+      const [stats, setStats] = useState({
+        totalScore: 0,
+        ratio: 0,
+        totalAnswered: 0,
+        streak1Clue: 0,
+        streak2Clues: 0
+      });
       
       const clueRefs = useRef([]);
       const inputRefs = useRef([]);
@@ -224,7 +250,7 @@
       }, []);
 
       useEffect(() => {
-        window.scrollTo(0, 0);
+        // Don't force scroll on page load - just prevent any automatic scrolling
         
         const handleClickOutside = (event) => {
           if (showCalendar && !event.target.closest('.calendar-container')) {
@@ -354,8 +380,8 @@
       useEffect(() => {
         if (!question) return;
         
-        // Scroll to new clue on mobile when it appears - but NOT for clue 3
-        if (window.innerWidth <= 640 && currentClue < 2 && clueRefs.current[currentClue]) {
+        // Scroll to new clue on mobile when it appears - clue 1 and 2 only
+        if (window.innerWidth <= 640 && currentClue > 0 && currentClue < 2 && clueRefs.current[currentClue]) {
           setTimeout(() => {
             clueRefs.current[currentClue]?.scrollIntoView({ 
               behavior: 'smooth', 
@@ -407,6 +433,78 @@
           }
         }
         return 0;
+      };
+
+      const calculateStats = () => {
+        let totalPts = 0;
+        let totalPossible = 0;
+        let answered = 0;
+        
+        // Get all quiz entries and sort by date
+        const allEntries = [];
+        Object.keys(localStorage).forEach(key => {
+          if (key.startsWith('quiz-') && key.includes('-') && !key.includes('total') && !key.includes('current-index') && !key.includes('answered-count')) {
+            const parts = key.split('-');
+            if (parts.length >= 4) {
+              const date = `${parts[1]}-${parts[2]}-${parts[3]}`;
+              const questionIndex = parseInt(parts[4]);
+              try {
+                const data = JSON.parse(localStorage.getItem(key));
+                if (data && data.isComplete) {
+                  allEntries.push({
+                    date,
+                    questionIndex,
+                    score: data.questionScore || 0,
+                    cluesUsed: data.currentClue + 1
+                  });
+                  totalPts += data.questionScore || 0;
+                  totalPossible += 5; // Max points per question
+                  answered++;
+                }
+              } catch (e) {}
+            }
+          }
+        });
+        
+        // Sort by date then question index
+        allEntries.sort((a, b) => {
+          if (a.date === b.date) return a.questionIndex - b.questionIndex;
+          return a.date.localeCompare(b.date);
+        });
+        
+        // Calculate streaks
+        let current1Streak = 0;
+        let max1Streak = 0;
+        let current2Streak = 0;
+        let max2Streak = 0;
+        
+        allEntries.forEach(entry => {
+          // Streak for 1 clue (5 points)
+          if (entry.cluesUsed === 1) {
+            current1Streak++;
+            max1Streak = Math.max(max1Streak, current1Streak);
+          } else {
+            current1Streak = 0;
+          }
+          
+          // Streak for 2 clues or less (3 or 5 points)
+          if (entry.cluesUsed <= 2) {
+            current2Streak++;
+            max2Streak = Math.max(max2Streak, current2Streak);
+          } else {
+            current2Streak = 0;
+          }
+        });
+        
+        const ratioCalc = totalPossible > 0 ? Math.round((totalPts / totalPossible) * 100) : 0;
+        
+        setStats({
+          totalScore: totalPts,
+          ratio: ratioCalc,
+          totalAnswered: answered,
+          streak1Clue: max1Streak,
+          streak2Clues: max2Streak
+        });
       };
 
       const calculateAndUpdateRatio = () => {
@@ -598,6 +696,14 @@
           setTimeout(() => {
             calculateAndUpdateRatio();
             
+            // Show stats modal if last question on today's quiz
+            if (currentQuestionIndex === dailyQuestions.length - 1 && isToday) {
+              setTimeout(() => {
+                calculateStats();
+                setShowStatsModal(true);
+              }, 800);
+            }
+            
             // Scroll behavior for both mobile and desktop
             if (currentQuestionIndex === dailyQuestions.length - 1) {
               // Last question - scroll to score
@@ -647,6 +753,14 @@
           
           setTimeout(() => {
             calculateAndUpdateRatio();
+            
+            // Show stats modal if last question on today's quiz
+            if (currentQuestionIndex === dailyQuestions.length - 1 && isToday) {
+              setTimeout(() => {
+                calculateStats();
+                setShowStatsModal(true);
+              }, 800);
+            }
             
             // Scroll behavior for wrong answer - both mobile and desktop
             if (currentQuestionIndex === dailyQuestions.length - 1) {
@@ -766,7 +880,7 @@
 
             <div className="text-center mb-3">
               <p className="text-xs text-gray-600 font-semibold">
-                Points par indice : <span className="text-green-600">10</span> / <span className="text-amber-600">8</span> / <span className="text-gray-600">4</span>
+                Points par indice : <span className="text-green-600">5</span> / <span className="text-amber-600">3</span> / <span className="text-gray-600">2</span>
               </p>
             </div>
 
@@ -781,11 +895,6 @@
                     {ratio > 0 && (
                       <span className="text-base font-semibold text-purple-600">
                         {ratio}%
-                      </span>
-                    )}
-                    {answeredCount > 0 && (
-                      <span className="text-xs text-gray-500 font-semibold">
-                        {formatAnsweredCount(answeredCount)}
                       </span>
                     )}
                   </div>
@@ -1009,6 +1118,71 @@
               )}
             </div>
           </div>
+          
+          {/* Statistics Modal */}
+          {showStatsModal && (
+            <div 
+              className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+              onClick={() => setShowStatsModal(false)}
+            >
+              <div 
+                className="bg-white rounded-3xl shadow-2xl p-8 max-w-lg w-full"
+                style={{maxHeight: '90vh', overflowY: 'auto'}}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <h2 className="text-3xl font-black text-amber-900 text-center mb-6">
+                  🎉 Statistiques
+                </h2>
+                
+                {/* Top: Total Score and Ratio */}
+                <div className="flex gap-3 justify-center mb-6 flex-wrap">
+                  <div className="bg-gradient-to-r from-yellow-100 to-amber-100 rounded-2xl p-4 border-3 border-amber-400 flex-1 min-w-[140px]">
+                    <div className="text-center">
+                      <div className="text-sm font-semibold text-gray-600 mb-1">Score Total</div>
+                      <div className="text-3xl font-black text-amber-900">{stats.totalScore}</div>
+                    </div>
+                  </div>
+                  <div className="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-4 border-3 border-purple-400 flex-1 min-w-[140px]">
+                    <div className="text-center">
+                      <div className="text-sm font-semibold text-gray-600 mb-1">Ratio</div>
+                      <div className="text-3xl font-black text-purple-900">{stats.ratio}%</div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Center: Total Answered */}
+                <div className="bg-gradient-to-r from-blue-100 to-indigo-100 rounded-2xl p-6 border-3 border-blue-400 mb-6">
+                  <div className="text-center">
+                    <div className="text-base font-semibold text-gray-600 mb-2">Questions Répondues</div>
+                    <div className="text-4xl font-black text-blue-900">{stats.totalAnswered}</div>
+                  </div>
+                </div>
+                
+                {/* Bottom: Streaks */}
+                <div className="space-y-3 mb-6">
+                  <div className="bg-gradient-to-r from-green-100 to-emerald-100 rounded-2xl p-4 border-3 border-green-400">
+                    <div className="text-center">
+                      <div className="text-xs font-semibold text-gray-600 mb-1">🔥 Séquence 1 indice</div>
+                      <div className="text-2xl font-black text-green-900">{stats.streak1Clue}</div>
+                    </div>
+                  </div>
+                  <div className="bg-gradient-to-r from-orange-100 to-amber-100 rounded-2xl p-4 border-3 border-orange-400">
+                    <div className="text-center">
+                      <div className="text-xs font-semibold text-gray-600 mb-1">🔥 Séquence 2 indices max</div>
+                      <div className="text-2xl font-black text-orange-900">{stats.streak2Clues}</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <button
+                  onClick={() => setShowStatsModal(false)}
+                  className="w-full px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl font-bold text-lg hover:from-amber-600 hover:to-orange-600 transition-all hover:scale-105 shadow-lg"
+                >
+                  Fermer
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       );
     }

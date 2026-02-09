@@ -17,17 +17,17 @@
     .from-amber-50 { --tw-gradient-from: #fffbeb; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 251, 235, 0)); }
     .via-orange-50 { --tw-gradient-stops: var(--tw-gradient-from), #fff7ed, var(--tw-gradient-to, rgba(255, 247, 237, 0)); }
     .to-yellow-50 { --tw-gradient-to: #fefce8; }
-    .p-3 { padding: 0.75rem; } .p-4 { padding: 1rem; } .p-5 { padding: 1.25rem; } .p-6 { padding: 1.5rem; }
+    .p-3 { padding: 0.75rem; } .p-4 { padding: 1rem; } .p-5 { padding: 1.25rem; } .p-6 { padding: 1.5rem; } .p-8 { padding: 2rem; }
     .pt-6 { padding-top: 1.5rem; } .pt-1 { padding-top: 0.25rem; }
     .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
     .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; } .px-4 { padding-left: 1rem; padding-right: 1rem; }
-    .px-5 { padding-left: 1.25rem; padding-right: 1.25rem; } .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .px-5 { padding-left: 1.25rem; padding-right: 1.25rem; } .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; } .px-8 { padding-left: 2rem; padding-right: 2rem; }
     .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; } .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
     .mb-1 { margin-bottom: 0.25rem; } .mb-2 { margin-bottom: 0.5rem; } .mb-3 { margin-bottom: 0.75rem; }
     .mb-4 { margin-bottom: 1rem; } .mb-5 { margin-bottom: 1.25rem; } .mb-6 { margin-bottom: 1.5rem; }
     .mt-1 { margin-top: 0.25rem; } .mt-2 { margin-top: 0.5rem; } .mt-3 { margin-top: 0.75rem; } .mt-4 { margin-top: 1rem; }
     .mr-2 { margin-right: 0.5rem; } .ml-2 { margin-left: 0.5rem; }
-    .max-w-2xl { max-width: 42rem; } .mx-auto { margin-left: auto; margin-right: auto; }
+    .max-w-2xl { max-width: 42rem; } .max-w-lg { max-width: 32rem; } .mx-auto { margin-left: auto; margin-right: auto; }
     .text-center { text-align: center; }
     .text-4xl { font-size: 2.25rem; line-height: 2.5rem; } .text-3xl { font-size: 1.875rem; line-height: 2.25rem; } .text-2xl { font-size: 1.5rem; line-height: 2rem; }
     .text-xl { font-size: 1.25rem; line-height: 1.75rem; } .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
@@ -94,12 +94,14 @@
     .flex-col { flex-direction: column; }
     .gap-1 { gap: 0.25rem; } .gap-2 { gap: 0.5rem; } .gap-3 { gap: 0.75rem; }
     .justify-center { justify-content: center; } .justify-between { justify-content: space-between; }
-    .items-center { align-items: center; } .items-start { align-items: flex-start; }
+    .items-center { align-items: center; } .items-start { align-items: flex-start; } .items-stretch { align-items: stretch; }
     .flex-shrink-0 { flex-shrink: 0; } .flex-wrap { flex-wrap: wrap; }
     .space-y-3 > * + * { margin-top: 0.75rem; }
-    .w-7 { width: 1.75rem; } .h-7 { height: 1.75rem; } .w-10 { width: 2.5rem; } .h-10 { height: 2.5rem; }
-    .w-11 { width: 2.75rem; } .h-11 { height: 2.75rem; } .w-12 { width: 3rem; } .h-12 { height: 3rem; }
+    .w-7 { width: 1.75rem; } .h-7 { height: 1.75rem; }
+    .w-10 { width: 2.5rem; } .h-10 { height: 2.5rem; }
+    .w-12 { width: 3rem; } .h-12 { height: 3rem; }
     .w-14 { width: 3.5rem; } .h-14 { height: 3.5rem; }
+    .w-full { width: 100%; }
     .transition-all { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
     .duration-150 { transition-duration: 150ms; }
     .scale-110 { transform: scale(1.1); } .hover\:scale-105:hover { transform: scale(1.05); }
@@ -118,7 +120,6 @@
     .bg-opacity-50 { background-color: rgba(0, 0, 0, 0.5); }
     .max-h-screen { max-height: 100vh; }
     .overflow-y-auto { overflow-y: auto; }
-    .space-y-3 > * + * { margin-top: 0.75rem; }
     .min-w-\[140px\] { min-width: 140px; }
     button { cursor: pointer; border: none; outline: none; }
     input { outline: none; }
@@ -163,7 +164,6 @@
       .px-2 { padding-left: 0.375rem; padding-right: 0.375rem; }
       .py-3 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
       .py-2 { padding-top: 0.375rem; padding-bottom: 0.375rem; }
-      .w-11 { width: 2.5rem; } .h-11 { height: 2.5rem; }
       .gap-3 { gap: 0.5rem; } .gap-2 { gap: 0.375rem; } .gap-1 { gap: 0.2rem; }
     }
   </style>
@@ -207,7 +207,7 @@
       const [showScoreAnimation, setShowScoreAnimation] = useState(false);
       const [answeredCount, setAnsweredCount] = useState(0);
       const [ratio, setRatio] = useState(0);
-      const [userAnswer, setUserAnswer] = useState(Array(8).fill(''));
+      const [userAnswer, setUserAnswer] = useState(Array(9).fill(''));
       const [currentClue, setCurrentClue] = useState(0);
       const [isComplete, setIsComplete] = useState(false);
       const [questionScore, setQuestionScore] = useState(0);
@@ -215,6 +215,7 @@
       const [showError, setShowError] = useState(false);
       const [errorMessage, setErrorMessage] = useState('');
       const [showStatsModal, setShowStatsModal] = useState(false);
+      const [isInitialLoad, setIsInitialLoad] = useState(true);
       const [stats, setStats] = useState({
         totalScore: 0,
         ratio: 0,
@@ -250,7 +251,7 @@
       }, []);
 
       useEffect(() => {
-        // Don't force scroll on page load - just prevent any automatic scrolling
+        // Don't force scroll on page load
         
         const handleClickOutside = (event) => {
           if (showCalendar && !event.target.closest('.calendar-container')) {
@@ -325,19 +326,15 @@
             const savedData = await storage.get(`quiz-${selectedDate}-${currentQuestionIndex}`);
             if (savedData && savedData.value) {
               const data = JSON.parse(savedData.value);
-              let answerArray = data.userAnswer || Array(8).fill('');
-              
-              // Only apply revealed letters if we're currently on clue 3 (index 2)
-              // This prevents them from showing up when loading a saved game
-              const savedClue = data.currentClue || 0;
+              let answerArray = data.userAnswer || Array(9).fill('');
               
               setUserAnswer(answerArray);
-              setCurrentClue(savedClue);
+              setCurrentClue(data.currentClue || 0);
               setIsComplete(data.isComplete || false);
               setQuestionScore(data.questionScore || 0);
               setWrongAnswers(data.wrongAnswers || []);
             } else {
-              setUserAnswer(Array(8).fill(''));
+              setUserAnswer(Array(9).fill(''));
               setCurrentClue(0);
               setIsComplete(false);
               setQuestionScore(0);
@@ -346,27 +343,35 @@
             
             calculateAndUpdateRatio();
             
-            // Focus on first available input - CRITICAL
+            // Focus on first available input - but NOT on initial page load for mobile
             setTimeout(() => {
+              const isMobile = window.innerWidth <= 640;
               if (!savedData?.value || !JSON.parse(savedData.value).isComplete) {
-                const firstAvailable = getFirstAvailableInputIndex();
-                if (inputRefs.current[firstAvailable]) {
-                  inputRefs.current[firstAvailable].focus();
+                if (!isInitialLoad || !isMobile) {
+                  const firstAvailable = 0;
+                  if (inputRefs.current[firstAvailable]) {
+                    inputRefs.current[firstAvailable].focus();
+                  }
                 }
               }
+              setIsInitialLoad(false);
             }, 150);
           } catch (error) {
-            setUserAnswer(Array(8).fill(''));
+            setUserAnswer(Array(9).fill(''));
             setCurrentClue(0);
             setIsComplete(false);
             setQuestionScore(0);
             setWrongAnswers([]);
             
-            // Focus even on error
+            // Focus even on error - but not on mobile initial load
             setTimeout(() => {
-              if (inputRefs.current[0]) {
-                inputRefs.current[0].focus();
+              const isMobile = window.innerWidth <= 640;
+              if (!isInitialLoad || !isMobile) {
+                if (inputRefs.current[0]) {
+                  inputRefs.current[0].focus();
+                }
               }
+              setIsInitialLoad(false);
             }, 150);
           }
         };
@@ -393,9 +398,8 @@
         // Re-focus input when clue changes
         if (!isComplete) {
           setTimeout(() => {
-            const firstAvailable = getFirstAvailableInputIndex();
-            if (inputRefs.current[firstAvailable]) {
-              inputRefs.current[firstAvailable].focus();
+            if (inputRefs.current[0]) {
+              inputRefs.current[0].focus();
             }
           }, 250);
         }
@@ -423,17 +427,6 @@
         };
         saveProgress();
       }, [userAnswer, currentClue, isComplete, questionScore, totalScore, wrongAnswers, currentQuestionIndex, selectedDate, isToday, todayStr, question]);
-
-      const getFirstAvailableInputIndex = () => {
-        if (!question) return 0;
-        for (let i = 0; i < 8; i++) {
-          const isRevealed = currentClue >= 2 && question.revealedLetters && question.revealedLetters[2] && question.revealedLetters[2].includes(i);
-          if (!isRevealed) {
-            return i;
-          }
-        }
-        return 0;
-      };
 
       const calculateStats = () => {
         let totalPts = 0;
@@ -508,12 +501,10 @@
       };
 
       const calculateAndUpdateRatio = () => {
-        // Calculate ratio based on ALL answered questions from answeredCount
-        // Not just today's date - this is the global success rate
+        // Calculate ratio based on ALL answered questions ever
         let totalEarnedPoints = 0;
         let totalPossibleFromAnswered = 0;
         
-        // We need to iterate through all saved questions to calculate actual ratio
         const allKeys = Object.keys(localStorage).filter(k => k.startsWith('quiz-'));
         
         allKeys.forEach(key => {
@@ -522,8 +513,7 @@
               const data = JSON.parse(localStorage.getItem(key));
               if (data && data.isComplete && data.questionScore) {
                 totalEarnedPoints += data.questionScore;
-                // Assume max points per question is 10 (first clue)
-                totalPossibleFromAnswered += 10;
+                totalPossibleFromAnswered += 5; // Max points per question
               }
             } catch (e) {}
           }
@@ -539,9 +529,6 @@
       const handleInputChange = (index, value) => {
         if (isComplete || !question) return;
         
-        // Only prevent typing in revealed letter boxes
-        if (currentClue >= 2 && question.revealedLetters && question.revealedLetters[2] && question.revealedLetters[2].includes(index)) return;
-        
         const letter = value.toUpperCase().replace(/[^A-ZÀ-ÿ]/g, '');
         if (letter.length > 1) return;
         
@@ -556,19 +543,10 @@
           }, 150);
         }
 
-        if (letter && index < 7) {
-          let nextIndex = index + 1;
-          while (nextIndex < 8) {
-            const isRevealed = currentClue >= 2 && question.revealedLetters && question.revealedLetters[2] && question.revealedLetters[2].includes(nextIndex);
-            
-            if (!isRevealed) {
-              setTimeout(() => {
-                inputRefs.current[nextIndex]?.focus();
-              }, 50);
-              break;
-            }
-            nextIndex++;
-          }
+        if (letter && index < 8) {
+          setTimeout(() => {
+            inputRefs.current[index + 1]?.focus();
+          }, 50);
         }
       };
 
@@ -596,51 +574,20 @@
             newAnswer[index] = '';
             setUserAnswer(newAnswer);
           } else if (index > 0) {
-            let prevIndex = index - 1;
-            while (prevIndex >= 0) {
-              const isRevealed = currentClue >= 2 && question.revealedLetters && question.revealedLetters[2] && question.revealedLetters[2].includes(prevIndex);
-              if (!isRevealed) {
-                const newAnswer = [...userAnswer];
-                newAnswer[prevIndex] = '';
-                setUserAnswer(newAnswer);
-                setTimeout(() => {
-                  inputRefs.current[prevIndex]?.focus();
-                }, 50);
-                break;
-              }
-              prevIndex--;
-            }
+            const newAnswer = [...userAnswer];
+            newAnswer[index - 1] = '';
+            setUserAnswer(newAnswer);
+            setTimeout(() => {
+              inputRefs.current[index - 1]?.focus();
+            }, 50);
           }
         } else if (e.key === 'Tab') {
           e.preventDefault();
-          // Find first non-revealed box
-          for (let i = 0; i < 8; i++) {
-            const isRevealed = currentClue >= 2 && question.revealedLetters && question.revealedLetters[2] && question.revealedLetters[2].includes(i);
-            if (!isRevealed) {
-              inputRefs.current[i]?.focus();
-              break;
-            }
-          }
+          inputRefs.current[0]?.focus();
         } else if (e.key === 'ArrowLeft' && index > 0) {
-          let prevIndex = index - 1;
-          while (prevIndex >= 0) {
-            const isRevealed = currentClue >= 2 && question.revealedLetters && question.revealedLetters[2] && question.revealedLetters[2].includes(prevIndex);
-            if (!isRevealed) {
-              inputRefs.current[prevIndex]?.focus();
-              break;
-            }
-            prevIndex--;
-          }
-        } else if (e.key === 'ArrowRight' && index < 7) {
-          let nextIndex = index + 1;
-          while (nextIndex < 8) {
-            const isRevealed = currentClue >= 2 && question.revealedLetters && question.revealedLetters[2] && question.revealedLetters[2].includes(nextIndex);
-            if (!isRevealed) {
-              inputRefs.current[nextIndex]?.focus();
-              break;
-            }
-            nextIndex++;
-          }
+          inputRefs.current[index - 1]?.focus();
+        } else if (e.key === 'ArrowRight' && index < 8) {
+          inputRefs.current[index + 1]?.focus();
         }
       };
 
@@ -659,17 +606,8 @@
         if (wrongAnswers.includes(answer)) {
           setErrorMessage('Vous avez déjà essayé cette réponse !');
           setShowError(true);
-          const newAnswer = Array(8).fill('');
-          if (currentClue >= 2 && question.revealedLetters && question.revealedLetters[2]) {
-            question.revealedLetters[2].forEach(index => {
-              if (index < question.answer.length) {
-                newAnswer[index] = question.answer[index];
-              }
-            });
-          }
-          setUserAnswer(newAnswer);
-          const firstIndex = getFirstAvailableInputIndex();
-          inputRefs.current[firstIndex]?.focus();
+          setUserAnswer(Array(9).fill(''));
+          inputRefs.current[0]?.focus();
           setTimeout(() => {
             setShowError(false);
           }, 3000);
@@ -725,27 +663,11 @@
           }, 100);
         } else if (!correct && currentClue < question.clues.length - 1) {
           setWrongAnswers(prev => [...prev, answer]);
+          setUserAnswer(Array(9).fill(''));
+          setCurrentClue(currentClue + 1);
           
-          const newClueIndex = currentClue + 1;
-          
-          // Apply revealed letters ONLY when moving TO clue 3 (index 2)
-          if (newClueIndex === 2 && question.revealedLetters && question.revealedLetters[2]) {
-            const newAnswer = [...userAnswer]; // Keep existing letters
-            question.revealedLetters[2].forEach(index => {
-              if (index < question.answer.length) {
-                newAnswer[index] = question.answer[index];
-              }
-            });
-            setUserAnswer(newAnswer);
-          } else if (newClueIndex !== 2) {
-            // Only clear if NOT going to clue 3
-            setUserAnswer(Array(8).fill(''));
-          }
-          
-          setCurrentClue(newClueIndex);
           setTimeout(() => {
-            const firstIndex = getFirstAvailableInputIndex();
-            inputRefs.current[firstIndex]?.focus();
+            inputRefs.current[0]?.focus();
           }, 100);
         } else {
           setWrongAnswers(prev => [...prev, answer]);
@@ -799,13 +721,6 @@
         if (currentQuestionIndex < dailyQuestions.length - 1) {
           setCurrentQuestionIndex(prev => prev + 1);
         }
-      };
-
-      const formatAnsweredCount = (count) => {
-        if (count >= 1000) {
-          return (count / 1000).toFixed(1).replace('.0', '') + 'k';
-        }
-        return count.toString();
       };
 
       const formatDateForCalendar = (dateStr) => {
@@ -880,7 +795,7 @@
 
             <div className="text-center mb-3">
               <p className="text-xs text-gray-600 font-semibold">
-                Points par indice : <span className="text-green-600">5</span> / <span className="text-amber-600">3</span> / <span className="text-gray-600">2</span>
+                Points par indice : <span className="text-green-600">5</span> / <span className="text-amber-600">3</span> / <span className="text-gray-600">1</span>
               </p>
             </div>
 
@@ -1017,7 +932,7 @@
 
               <div className="mb-5 p-3 bg-amber-50 border-2 border-amber-200 rounded-xl">
                 <p className="text-center text-amber-800 font-semibold text-sm">
-                  💡 Entrez votre réponse (maximum 8 lettres)
+                  💡 Entrez votre réponse (maximum 9 lettres)
                 </p>
               </div>
 
@@ -1030,9 +945,8 @@
               )}
 
               <div className="flex gap-1 justify-center mb-5">
-                {Array(8).fill(0).map((_, index) => {
+                {Array(9).fill(0).map((_, index) => {
                   const isAnswerBox = index < question.answer.length;
-                  const isRevealed = currentClue >= 2 && question.revealedLetters && question.revealedLetters[2] && question.revealedLetters[2].includes(index);
                   const isCrossed = !isAnswerBox && currentClue >= 2;
                   
                   return (
@@ -1044,19 +958,17 @@
                       value={userAnswer[index]}
                       onChange={(e) => handleInputChange(index, e.target.value)}
                       onKeyDown={(e) => handleKeyDown(index, e)}
-                      disabled={isComplete || isRevealed}
-                      className={`answer-font w-11 h-11 text-center text-3xl uppercase rounded-md transition-all duration-150 border
+                      disabled={isComplete}
+                      className={`answer-font w-10 h-10 text-center text-2xl uppercase rounded-md transition-all duration-150 border
                         ${isCrossed
                           ? 'bg-gray-100 border-gray-200 text-gray-300 line-through cursor-not-allowed'
                           : isComplete && index < question.answer.length && userAnswer[index] === question.answer[index]
                           ? 'bg-green-100 border-green-500 text-green-800 border-2'
                           : isComplete && index < question.answer.length && userAnswer[index] && userAnswer[index] !== question.answer[index]
                           ? 'bg-red-100 border-red-500 text-red-800 border-2'
-                          : isRevealed
-                          ? 'bg-blue-50 border-blue-300 text-blue-800 cursor-not-allowed'
                           : 'bg-white border-gray-300 text-amber-900'
-                        } ${isComplete || isRevealed ? 'cursor-not-allowed' : isCrossed ? 'cursor-not-allowed' : 'hover:border-orange-400'}`}
-                      tabIndex={!isComplete && !isRevealed ? 0 : -1}
+                        } ${isComplete ? 'cursor-not-allowed' : isCrossed ? 'cursor-not-allowed' : 'hover:border-orange-400'}`}
+                      tabIndex={!isComplete ? 0 : -1}
                     />
                   );
                 })}
@@ -1072,10 +984,17 @@
                   </button>
                   {currentClue < question.clues.length - 1 && (
                     <button
-                      onClick={() => setCurrentClue(currentClue + 1)}
+                      onClick={() => {
+                        // On mobile, validate answer first
+                        if (window.innerWidth <= 640) {
+                          checkAnswer();
+                        } else {
+                          setCurrentClue(currentClue + 1);
+                        }
+                      }}
                       className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl font-bold text-base hover:from-blue-600 hover:to-indigo-600 transition-all hover:scale-105 shadow-lg"
                     >
-                      Passer et voir l'indice suivant
+                      {window.innerWidth <= 640 ? 'Suivant' : 'Passer et voir l\'indice suivant'}
                     </button>
                   )}
                 </div>
